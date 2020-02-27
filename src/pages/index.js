@@ -314,7 +314,15 @@ const IndexPage = () => {
           <p>
             An experimental project that lets you paint an animated heat effect
             onto an image with GSAP, SVG filters, and CSS masks. This project
-            was selected as a Picked Pen by Codepen staff.
+            was posted to the Codepen front page and{' '}
+            <a
+              href="https://codepen.io/spark/31"
+              target="_blank"
+              rel="noferrer noopener"
+            >
+              included in the Codepen Spark weekly newsletter
+            </a>{' '}
+            by Codepen staff.
           </p>
           <div>
             <Button url="https://codepen.io/mpopv/full/zzENQQ" primary={true}>
