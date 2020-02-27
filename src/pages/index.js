@@ -137,7 +137,7 @@ const IndexPage = () => {
         <p>
           In my free time, I{' '}
           <a
-            href="instagram.com/mattpopovichart"
+            href="https://instagram.com/mattpopovichart"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -145,7 +145,7 @@ const IndexPage = () => {
           </a>
           ,{' '}
           <a
-            href="unsplash.com/@mpopv"
+            href="https://unsplash.com/@mpopv"
             target="_blank"
             rel="noopener noreferrer"
           >
