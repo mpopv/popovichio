@@ -215,8 +215,8 @@ const IndexPage = () => {
         <Project data={data} bgImage="makeemoji">
           <h1>MakeEmoji</h1>
           <p>
-            A React app that lets you create your own animated custom emojis for
-            Slack and Discord, all on the frontend.
+            A React/Typescript app that lets you create your own animated custom
+            emojis for Slack and Discord, all on the frontend.
           </p>
           <div>
             <Button url="https://makeemoji.com/" primary={true}>
