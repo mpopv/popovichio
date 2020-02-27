@@ -48,6 +48,7 @@ a, a:visited {
 
 body {
   font-family: "Acre";
+  font-weight: 400;
   background-color: #002634;
   background-image: linear-gradient(
     to top, 
@@ -58,6 +59,7 @@ body {
 
 a, p {
   font-family: "Acre";
+  font-weight: 400;
   font-size: 20px;
   line-height: 1.35;
 }
@@ -81,6 +83,7 @@ a:hover {
   color: #FFF7e0;
   margin: 0 0 45px;
   font-family: "Marvin Visions";
+  font-weight: 400;
   font-size: 199px;
   line-height: 0.73;
   letter-spacing: 4px;
@@ -104,6 +107,7 @@ a:hover {
 
 .header {
   font-size: 20px;
+  font-weight: 400;
   text-transform: uppercase;
   margin: 0;
   padding: 65px 0 20px 0;
@@ -171,6 +175,7 @@ a:hover {
   color: #FFF7e0;
   margin: 0;
   font-family: "Marvin Visions";
+  font-weight: 400;
   line-height: 0.75;
   letter-spacing: 1px;
   background: linear-gradient(
@@ -185,6 +190,7 @@ a:hover {
 .project__content > p > a {
   max-width: 90%;
   font-size: 15px;
+  font-weight: 400;
   margin: 10px 0 0;
 }
 
