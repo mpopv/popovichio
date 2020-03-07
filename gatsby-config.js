@@ -28,5 +28,12 @@ module.exports = {
         icon: `src/images/favicon.png`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-fathom',
+      options: {
+        siteId: 'DYYWXVHI',
+        whitelistHostnames: ['popovich.io'],
+      },
+    },
   ],
 };
