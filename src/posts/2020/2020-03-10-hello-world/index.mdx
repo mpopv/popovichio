@@ -5,6 +5,25 @@ date: 2020-03-10
 published: true
 ---
 
-# Welcome to my blog!
+## Welcome to my blog!
 
 This is my first post. Not much here now, but more to come.
+
+## Some code:
+
+```jsx react-live
+  const Counter = props => {
+    const [num, setNum] = React.useState(0)
+
+    return (
+      <div>
+        <button onClick={() => setNum(num + 1)}>Increment</button>
+        <div>
+          {num}
+        </div>
+      </div>
+    );
+  };
+
+  render(<Counter/>);
+```
