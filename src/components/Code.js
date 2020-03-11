@@ -26,10 +26,10 @@ const LineNo = styled.span`
 
 const CopyCode = styled.button`
   position: absolute;
-  right: 0.25rem;
+  right: 10px;
   border: 2px solid rgba(0, 0, 0, 0);
   border-radius: 3px;
-  margin: 0.25em;
+  margin: 0;
   cursor: pointer;
   opacity: 0.7;
   &:hover {
