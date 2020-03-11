@@ -39,12 +39,12 @@ const Counter = props => {
   const [num, setNum] = React.useState(0)
 
   return (
-    <div>
+    <>
       <button onClick={() => setNum(num + 1)}>Increment</button>
-      <p>
+      <div>
         Count: {num}
-      </p>
-    </div>
+      </div>
+    </>
   );
 };
 

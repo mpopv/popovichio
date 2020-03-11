@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import Layout from '../components/Layout';
-import Project from '../components/Project';
 import Seo from '../components/Seo';
 import styled from 'styled-components';
 
@@ -27,17 +26,6 @@ const Emoji = ({ alt = '', children }) => (
   >
     {children}
   </span>
-);
-
-const Button = ({ url, primary = false, children }) => (
-  <a
-    className={`button ${primary ? 'button--primary' : ''}`}
-    href={url}
-    target="_blank"
-    rel="noreferrer noopener"
-  >
-    {children}
-  </a>
 );
 
 const IndexPage = () => {

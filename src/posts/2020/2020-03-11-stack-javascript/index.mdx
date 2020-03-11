@@ -1,0 +1,191 @@
+---
+path: "/blog/stack-javascript"
+title: Data Structures in JavaScript - How and Why to Implement a Stack, the Right Way (and the Wrong Way)
+date: 2020-03-11
+published: true
+---
+
+## What's a Stack?
+
+## Why Would We Want to Use a Stack?
+
+## The Right Way to Implement a Stack
+
+```jsx react-live
+let Stack = function () {
+  this.count = 0;
+  this.bound = 10;
+  this.data = {};
+
+  // Add a value to the top of the stack
+  this.push = function (value) {
+    // Check to see if we are trying to push onto a full stack (stack overflow)
+    if (this.count === this.bound) {
+      console.log(`Stack overflow!`);
+      return undefined;
+    }
+    this.data[this.count] = value;
+    this.count++;
+  }
+
+  // Remove a value from the top of the stack, and return it
+  this.pop = function() {
+    // Check to see if we are trying to pull from an empty stack (stack underflow)
+    if (this.count === 0) {
+      console.log(`Stack underflow!`);
+      return undefined;
+    }
+    this.count--;
+    let result = this.data[this.count];
+    delete this.data[this.count];
+    return result;
+  }
+}
+
+// Test: push and then pop 5,000,000 items
+function testDataStructure (structure) {
+  let timeStart = performance.now();
+  for (let i = 0; i < 5000000; i++) {
+    structure.push(i);
+  }
+  while (structure.length > 0) {
+    const nextItem = structure.pop();
+  }
+  let timeEnd = performance.now();
+  return timeEnd - timeStart;
+}
+
+const Tests = props => {
+  const [resultArray, setResultArray] = React.useState(0);
+  const [resultStack, setResultStack] = React.useState(0);
+
+  const Winner = ({ difference }) => (
+    <span style={{ background: `aquamarine`, padding: `0 5px` }}>
+    {`<-- Winner: ${difference} faster!`}
+    </span>
+  );
+
+  return (
+    <>
+      <div>
+        <button onClick={() => {
+          let nextResultArray = testDataStructure([]);
+          let nextResultStack = testDataStructure(new Stack());
+          setResultArray(nextResultArray);
+          setResultStack(nextResultStack);
+        }}>
+          Start test
+        </button>
+        <div>
+          <div>
+            Array test result: {resultArray} {resultArray < resultStack && 
+              <Winner difference={resultStack - resultArray}/>
+            }
+          </div>
+          <div>
+            Stack test result: {resultStack} {resultStack < resultArray && 
+              <Winner difference={resultArray - resultStack}/>
+            }
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+render(<Tests/>);
+```
+
+Incredible! The stack is almost always faster than even *native JavaScript arrays*. We just beat JavaScript at its own game.
+
+## The Wrong Way to Implement a Stack
+
+If you Google "implement a stack javascript" and read blogs or (irony alert) Stack Overflow answers, you'll find lots of examples that store the data within the stack as an array, and use normal array methods to add and remove items, like so:
+
+```jsx
+let Stack = function () {
+  this.count = 0;
+  this.data = [];
+
+  this.push = function(value) {
+    this.data.push(value);
+  }
+
+  this.pop = function() {
+    this.data.pop(value);
+  }
+  
+  // ...etc.
+}
+```
+
+This makes the inner workings of a stack easier to reason about, since we can simply `.push()` and `.pop()` items on and off of the array. But it sort of defeats the purpose of a stack, which is making sure these operations are as performant as possible, by building on top of JavaScript's Arrays, which we don't really need to do.
+
+```jsx react-live
+let Stack = function () {
+  this.count = 0;
+  this.bound = 10;
+  this.data = {};
+
+  this.push = function(value) {
+    this.data.push(value);
+  }
+
+  this.pop = function() {
+    this.data.pop(value);
+  }
+}
+
+// Test: push and then pop 5,000,000 items
+function testDataStructure (structure) {
+  let timeStart = performance.now();
+  for (let i = 0; i < 5000000; i++) {
+    structure.push(i);
+  }
+  while (structure.length > 0) {
+    const nextItem = structure.pop();
+  }
+  let timeEnd = performance.now();
+  return timeEnd - timeStart;
+}
+
+const Tests = props => {
+  const [resultArray, setResultArray] = React.useState(0);
+  const [resultStack, setResultStack] = React.useState(0);
+
+  const Winner = ({ difference }) => (
+    <span style={{ background: `aquamarine`, padding: `0 5px` }}>
+    {`<-- Winner: ${difference} faster!`}
+    </span>
+  );
+
+  return (
+    <>
+      <div>
+        <button onClick={() => {
+          let nextResultArray = testDataStructure([]);
+          let nextResultStack = testDataStructure(new Stack());
+          setResultArray(nextResultArray);
+          setResultStack(nextResultStack);
+        }}>
+          Start test
+        </button>
+        <div>
+          <div>
+            Array test result: {resultArray} {resultArray < resultStack && 
+              <Winner difference={resultStack - resultArray}/>
+            }
+          </div>
+          <div>
+            Stack test result: {resultStack} {resultStack < resultArray && 
+              <Winner difference={resultArray - resultStack}/>
+            }
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+render(<Tests/>);
+```
