@@ -3,24 +3,39 @@ import React from 'react';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
 
-const IndexWrapper = styled.main``;
+const Content = styled.div`
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  & img {
+    width: 100%;
+  }
+`;
 
-const PostWrapper = styled.div``;
+const PostWrapper = styled.div`
+  padding-top: 30px;
+  border-top: 2px solid #2b2b2b;
+  margin-top: 60px;
+`;
 
 export default ({ data }) => {
   return (
     <Layout>
-      <IndexWrapper>
-        {data.allMdx.nodes.map(({ id, excerpt, frontmatter, fields }) => (
-          <PostWrapper key={id}>
-            <Link to={fields.slug}>
-              <h1>{frontmatter.title}</h1>
+      <Content>
+        <h1>Blog</h1>
+        <Link to={'/'}>{`< Home`}</Link>
+        <div>
+          {data.allMdx.nodes.map(({ id, excerpt, frontmatter, fields }) => (
+            <PostWrapper key={id}>
+              <Link to={fields.slug}>
+                <h1>{frontmatter.title}</h1>
+              </Link>
               <p>{frontmatter.date}</p>
               <p>{excerpt}</p>
-            </Link>
-          </PostWrapper>
-        ))}
-      </IndexWrapper>
+            </PostWrapper>
+          ))}
+        </div>
+      </Content>
     </Layout>
   );
 };
@@ -36,7 +51,7 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date
+          date(formatString: "MMMM Do, YYYY")
         }
         fields {
           slug

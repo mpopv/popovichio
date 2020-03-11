@@ -13,6 +13,11 @@ const Content = styled.div`
   }
 `;
 
+const BackArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 const LinkArea = styled.p`
   display: inline-flex;
   align-items: center;
@@ -26,6 +31,10 @@ export default ({ data, pageContext }) => {
       <Content>
         <h1>{frontmatter.title}</h1>
         <p>{frontmatter.date}</p>
+        <BackArea>
+          <Link to={'/blog'}>{`< Back to Blog`}</Link>
+          <Link to={'/'}>{`< Back Home`}</Link>
+        </BackArea>
         <MDXRenderer>{body}</MDXRenderer>
         {previous === false ? null : (
           <>
@@ -51,6 +60,10 @@ export default ({ data, pageContext }) => {
             )}
           </>
         )}
+        <BackArea>
+          <Link to={'/blog'}>{`< Back to Blog`}</Link>
+          <Link to={'/'}>{`< Back Home`}</Link>
+        </BackArea>
       </Content>
     </Layout>
   );
@@ -62,7 +75,7 @@ export const query = graphql`
       body
       frontmatter {
         title
-        date(formatString: "YYYY MMMM Do")
+        date(formatString: "MMMM Do, YYYY")
       }
     }
   }
