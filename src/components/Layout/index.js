@@ -10,11 +10,7 @@ import PropTypes from 'prop-types';
 
 import './index.css';
 
-const Layout = ({ children }) => (
-  <>
-    <main className="layout">{children}</main>
-  </>
-);
+const Layout = ({ children }) => <main className="layout">{children}</main>;
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

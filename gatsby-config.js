@@ -1,11 +1,26 @@
+const siteMetadata = {
+  title: `Matt Popovich`,
+  description: `My personal site`,
+  author: `Matt Popovich`,
+};
+
 module.exports = {
-  siteMetadata: {
-    title: `Matt Popovich`,
-    description: `My personal site`,
-    author: `Matt Popovich`,
-  },
+  siteMetadata,
   plugins: [
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/src/posts`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
