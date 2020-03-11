@@ -8,34 +8,36 @@ import { copyToClipboard } from '../utils/copy-to-clipboard';
 const Pre = styled.pre`
   position: relative;
   text-align: left;
-  margin: 1em 0;
-  padding: 0.5em;
+  margin: 10px 0;
+  padding: 10px;
   overflow-x: auto;
-  border-radius: 3px;
-
   & .token-lline {
     line-height: 1.3em;
     height: 1.3em;
   }
-  font-family: 'Courier New', Courier, monospace;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 const LineNo = styled.span`
-  display: inline-block;
-  width: 2em;
-  user-select: none;
-  opacity: 0.3;
+  display: none;
 `;
 
 const CopyCode = styled.button`
   position: absolute;
   right: 0.25rem;
-  border: 0;
+  border: 2px solid rgba(0, 0, 0, 0);
   border-radius: 3px;
   margin: 0.25em;
-  opacity: 0.3;
+  cursor: pointer;
+  opacity: 0.7;
   &:hover {
     opacity: 1;
+  }
+  &:focus {
+    opacity: 1;
+    border-color: skyblue;
   }
 `;
 
@@ -45,7 +47,9 @@ const Code = ({ codeString, language, ...props }) => {
       <LiveProvider code={codeString} noInline={true} theme={theme}>
         <LiveEditor />
         <LiveError />
-        <LivePreview />
+        <div style={{ border: `2px solid #041623`, padding: `20px 25px` }}>
+          <LivePreview />
+        </div>
       </LiveProvider>
     );
   }
