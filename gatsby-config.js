@@ -55,7 +55,7 @@ module.exports = {
         short_name: `Popovich.io`,
         start_url: `/`,
         background_color: `#00222E`,
-        theme_color: `#FFA043`,
+        theme_color: `#ffc04d`,
         display: `minimal-ui`,
         icon: `src/images/favicon.png`,
       },
