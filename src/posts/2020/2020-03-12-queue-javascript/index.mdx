@@ -1,0 +1,90 @@
+---
+path: "/blog/queue-javascript"
+title: How (and Why) To Implement a Queue in JavaScript
+date: 2020-03-12
+published: false
+---
+
+1. [What's a Queue?](#what)
+2. [Why Might We Want to Use a Queue?](#why)
+3. [Implementing a Basic Queue](#how)
+
+<a name='what'></a>
+
+## [#](#what) What's a Queue?
+
+In computer science, a **queue** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) (meaning a list of items, similar to an array). What makes a queue distinct is that it's constrained by specific rules governing how items can be added and removed, much like a stack. *(If you're not sure what a stack is, it's a good idea to read [this post](/2020/2020-03-11-stack-javascript/) before continuing.)*
+
+While a stack enforces a Last In, First Out (LIFO) order, where items can only be added to or removed from a *single end* of the stack, a queue enforces a **First In, First Out (FIFO)** order, where items can only be inserted into one end of the queue (the **tail**) and only removed from the *other* end of the queue (the **head**).
+
+Inserting an item into a queue is called an **enqueue** operation, and removing an item is called a **dequeue** operation.
+
+<a name='why'></a>
+
+## [#](#why) Why Might We Want to Use a Queue?
+
+[As we learned](/2020/2020-03-11-stack-javascript/), a stack doesn't provide much of a performance benefit over a native JavaScript array, because the `Array.prototype.push()` and `Array.prototype.pop()` methods have been optimized to provide a stack-like [**O(1)** efficiency](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). This means that no matter how large the array is, push and pop operations should take around the same amount of time.
+
+On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are only **O(n)** efficient, meaning the greater the length of the array is, the longer they will take:
+
+<br/>
+
+![Two charts showing push performance barely changing over time and unshift performance increasing exponentially over time](https://i.imgur.com/EK5UNBD.png)
+*The performance of `.push()` doesn't change much as the array grows, but `.unshift()` gets substantially slower. [Source](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift)*
+
+<br/>
+
+This is because every single item in the array must have its index incremented. With a new `array[0]`, the item previously at `array[0]` becomes `array[1]`, the item at `array[1]` becomes `array[2]`, etc. *(Technically, [this isn't strictly speaking true in JavaScript due to clever optimizations](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift), but it's how it works conceptually, and the optimizations don't change the **O(n)** efficiency.)*
+
+A queue provides an intriguing alternative: by limiting ourselves to a First In, First Out method of interacting with a list, we can reduce that **O(n)** to an **O(1)** efficiency.
+
+<a name='how'></a>
+
+## [#](#how) How to Implement a Basic Queue
+
+Conceptually, a stack allowed us to keep its add/remove operations efficient by keeping track of the index of the item at one end of the list. So with a queue, since we're interacting with *both* ends of the list, we'll need to keep track of *both* ends' indices:
+
+```js
+function Queue () {
+  let data = {};
+  let headIndex = 0;
+  let tailIndex = 0;
+}
+```
+
+### Implementing `.enqueue()`
+
+```js
+function Queue () {
+  let data = {};
+  let headIndex = 0;
+  let tailIndex = 0;
+
+  this.enqueue = function () {
+    data[tailIndex];
+    tailIndex++;
+  }
+}
+```
+
+### Implementing `.dequeue()`
+
+```js
+function Queue () {
+  let data = {};
+  let head = 0;
+  let tail = 0;
+
+  this.enqueue = function () {
+    data[tail];
+    tail++;
+  }
+
+  this.dequeue = function () {
+    let item = data[head];
+    delete data[head];
+    head++;
+    return item;
+  }
+}
+```

@@ -1,16 +1,8 @@
 @font-face {
-  font-family: "Marvin Visions";
+  font-family: 'Acre';
   font-weight: 400;
   font-style: normal;
-  src: url("../../static/MarvinVisionsBig-Bold.woff2") format("woff2");
-  font-display: block;
-}
-
-@font-face {
-  font-family: "Acre";
-  font-weight: 400;
-  font-style: normal;
-  src: url("../../static/acre-medium-webfont.woff2") format("woff2");
+  src: url('../../static/acre-medium-webfont.woff2') format('woff2');
   font-display: block;
 }
 
@@ -20,207 +12,56 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-li, ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .layout {
   margin: 0 auto;
-  padding: 130px 20px 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 50px 30px;
   min-height: 100vh;
 }
 
-a, a:visited {
+a,
+a:visited {
   text-decoration: none;
 }
 
 body {
-  font-family: "Acre";
+  font-family: sans-serif;
   font-weight: 400;
-  background-color: #002634;
-  background-image: linear-gradient(
-    to top, 
-    #005d80 15%,
-    #002634 100%
-  );
-}
-
-a, p {
-  font-family: "Acre";
+  font-size: 19px;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 1.35;
+  color: #2b2b2b;
 }
 
-p {
-  color: #FFF7e0;
+a,
+p,
+li {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
 }
 
-a, a:visited  {
-  color: #FFC04D;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Acre';
+  line-height: 1.3;
+}
+
+a,
+a:visited {
+  color: steelblue;
 }
 a:hover {
-  color: #FF8543;
+  color: tomato;
 }
 
 .content {
-  max-width: 550px;
-}
-
-.page-header {
-  color: #FFF7e0;
-  margin: 0 0 45px;
-  font-family: "Marvin Visions";
-  font-weight: 400;
-  font-size: 199px;
-  line-height: 0.73;
-  letter-spacing: 4px;
-  background: linear-gradient(
-    -30deg, 
-    #FF384A -100%, 
-    #FFC04D 80%,
-    #FFF7e0 150% 
-  );
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-@media (max-width: 550px) {
-  .page-header {
-    font-size: 100px;
-    letter-spacing: 2px;
-    max-width: 250px;
-  }
-}
-
-
-.header {
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 65px 0 20px 0;
-  letter-spacing: 3px;
-}
-
-.project-area {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(12, 375px);
-}
-@media (min-width: 1100px) {
-  .project-area {
-    width: 1000px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 375px);
-  }
-}
-@media (min-width: 1650px) {
-  .project-area {
-    width: 1500px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 375px);
-  }
-}
-
-.project {
-  position: relative;
-  border-radius: 8px;
-  background-color: #196382;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.project__image {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.15;
-  transition: all 0.8s cubic-bezier(0,.48,0,1.08);
-}
-.project:hover .project__image {
-  opacity: 0.25;
-}
-.project .gatsby-image-wrapper {
-  border-radius: 8px;
-  width: 100%;
-  height: 100%;
-}
-.project__content {
-  z-index: 2;
-  width: calc(100% - 60px);
-  height: calc(100% - 60px);
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-.project__content h1 {
-  font-size: 50px;
-  max-width: 70%;
-  color: #FFF7e0;
-  margin: 0;
-  font-family: "Marvin Visions";
-  font-weight: 400;
-  line-height: 0.75;
-  letter-spacing: 1px;
-  background: linear-gradient(
-    to top, 
-    #C1C9BC 0%,
-    #FFF7e0 100% 
-  );
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-.project__content > p, 
-.project__content > p > a {
-  max-width: 90%;
-  font-size: 15px;
-  font-weight: 400;
-  margin: 10px 0 0;
-}
-
-.project__content p {
-  color: #DCDECD;
-}
-
-@media (max-width: 550px) {
-  .project__content h1 {
-    font-size: 35px;
-  }
-}
-
-.button, .button:visited {
-  display: inline-block;
-  margin: 15px 5px 0 0;
-  color: #005375;
-  background-color: #BAC2B4;
-  padding: 5px 15px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 14px;
-  transition: all 0.8s cubic-bezier(0,.48,0,1.08);
-}
-.button--primary, .button--primary:visited {
-  color: #005375;
-  background-color: #FFC04D;
-}
-.button:hover {
-  color: #005375;
-  background-color: #F9F1D8;
+  max-width: 680px;
 }

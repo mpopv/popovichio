@@ -1,0 +1,52 @@
+---
+path: "/blog/hello-world"
+title: Hello world
+date: 2020-03-10
+published: false
+---
+
+## Welcome to my blog!
+
+This is my first post. Not much here now, but more to come.
+
+### Testing code blocks:
+
+The below should have syntax highlighting and a Copy button.
+
+```jsx
+const Counter = props => {
+  const [num, setNum] = React.useState(0)
+
+  return (
+    <div>
+      <button onClick={() => setNum(num + 1)}>Increment</button>
+      <div>
+        Count: {num}
+      </div>
+    </div>
+  );
+};
+
+render(<Counter/>);
+```
+
+### Testing live React previews:
+
+The below should be editable and update the preview live.
+
+```jsx react-live
+const Counter = props => {
+  const [num, setNum] = React.useState(0)
+
+  return (
+    <>
+      <button onClick={() => setNum(num + 1)}>Increment</button>
+      <div>
+        Count: {num}
+      </div>
+    </>
+  );
+};
+
+render(<Counter/>);
+```

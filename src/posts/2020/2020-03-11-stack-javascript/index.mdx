@@ -1,0 +1,223 @@
+---
+path: "/blog/stack-javascript"
+title: How (and Why) To Implement a Stack in JavaScript
+date: 2020-03-11
+published: true
+---
+
+1. [What's a Stack?](#what)
+2. [Implementing a Basic Stack](#how)
+3. [Preventing Stack Underflows & Overflows](#underflows)
+4. [Why Would We Want to Use a Stack?](#why)
+
+<a name='what'></a>
+
+## [#](#what) What's a Stack?
+
+In computer science, a **stack** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) (meaning a list of items, similar to an array). What makes a stack distinct is that it's constrained by specific rules governing how items can be added and removed.
+
+A stack only allows items to be added to, or removed from, *one end* of the list (the top of the stack). This is known as **Last In, First Out**. Items are added with a `push()` operation and removed with a `pop()` operation.
+
+Think of it like a stack of pancakes:
+
+You can push a pancake onto the *top* end of the stack...
+
+![](https://i.imgur.com/a4ozQeB.jpg)
+
+...and you can pop a pancake off of the *top* end of the stack...
+
+![](https://i.imgur.com/awSiBu7.jpg)
+
+...but you *can't* add pancakes to, or remove pancakes from, the *middle* of the stack or the *bottom* end of the stack. Otherwise they'll go flying.
+
+![](https://i.imgur.com/LYoPXro.jpg)
+
+<a name='how'></a>
+
+## [#](#how) Implementing a Basic Stack
+
+In its most basic implementation, a stack has to keep track of two internal variables:
+
+1. A number representing the *size* of the stack, and
+2. A [hash table](https://en.wikipedia.org/wiki/Hash_table) (in other words, an object) representing the *data* in the list.
+
+To begin implementing our stack, we'll need to set these:
+
+```
+function Stack () {
+  this.size = 0;
+  this.data = {};
+}
+```
+
+### Implementing `.push()`
+
+Because the hash table is zero-indexed, the size value is always one greater than the last value that was added to the hash table. Whenever we push a new value onto the hash table, we'll add the data to the hash table, keyed by current size, and then increment the size value.
+
+```js
+function Stack () {
+  this.size = 0;
+  this.data = {};
+
+  // Add a value to the top of the stack
+  this.push = function (value) {
+    this.data[this.size] = value;
+    this.size++;
+  }
+}
+```
+
+Now, we can push values onto the stack, and view its size:
+
+```js
+let stackOfOnes = new Stack();
+stackOfOnes.push(1);
+stackOfOnes.push(1);
+stackOfOnes.push(1);
+console.log(stackOfOnes.size); // 3
+```
+
+### Implementing `.pop()`
+
+To pop off the last value, we access it from the hash table using the size value to determine its key, delete it from the hash table, decrement the size value, and return the retrieved value.
+
+```js
+function Stack () {
+  this.size = 0;
+  this.data = {};
+
+  // Add a value to the top of the stack
+  this.push = function (value) {
+    this.data[this.size] = value;
+    this.size++;
+  }
+
+  // Remove a value from the top of the stack, and return it
+  this.pop = function() {
+    let lastKey = this.size - 1;
+    let result = this.data[lastKey];
+    delete this.data[lastKey];
+    this.size--;
+    return result;
+  }
+}
+```
+
+Now, we've got a basic functional stack: we can push values onto the stack, pop them off the stack, and view its size.
+
+```js
+let fruitStack = new Stack();
+fruitStack.push('apple');
+fruitStack.push('banana');
+fruitStack.push('orange');
+console.log(fruitStack.size); // 3
+let lastFruit = fruitStack.pop();
+console.log(lastFruit); // 'orange'
+console.log(fruitStack.size); // 2
+```
+
+<a name='underflows'></a>
+
+## [#](#underflows) Preventing Stack Underflows & Overflows
+
+Now, you're probably already starting to realize that we could run into some issues here. What happens, for example, if we try to to `.pop()` a value off an empty stack?
+
+Attempting to pop an empty stack is called a ***stack underflow***. You've probably also heard of a ***stack overflow***, which is when a stack's size exceeds a certain limit. Stacks usually set a predetermined bound in order to prevent inifinite-loop bugs that attempt to push items onto the stack over and over indefinitely.
+
+To make our stack more resilient, let's add some guardrails against underflows and overflows.
+
+First, we'll add a check in `.pop()` to ensure we aren't popping an empty stack:
+
+```js
+function Stack () {
+  this.size = 0;
+  this.data = {};
+
+  // Add a value to the top of the stack
+  this.push = function (value) {
+    this.data[this.size] = value;
+    this.size++;
+  }
+
+  // Remove a value from the top of the stack, and return it
+  this.pop = function() {
+    if (this.size === 0) {
+      console.log(`Stack underflow!`);
+      return;
+    }
+    let lastKey = this.size - 1;
+    let result = this.data[lastKey];
+    delete this.data[lastKey];
+    this.size--;
+    return result;
+  }
+}
+```
+
+Next, we'll set an internal bound variable when the stack is created, and add a check in `.push()` to ensure we aren't exceeding that bound.
+
+```js
+function Stack (bound = 10) {
+  this.size = 0;
+  this.bound = bound;
+  this.data = {};
+
+  // Add a value to the top of the stack
+  this.push = function (value) {
+    if (this.size >= this.bound) {
+      console.log(`Stack overflow!`);
+      return;
+    }
+    this.data[this.size] = value;
+    this.size++;
+  }
+
+  // Remove a value from the top of the stack, and return it
+  this.pop = function() {
+    if (this.size === 0) {
+      console.log(`Stack underflow!`);
+      return;
+    }
+    let lastKey = this.size - 1;
+    let result = this.data[lastKey];
+    delete this.data[lastKey];
+    this.size--;
+    return result;
+  }
+}
+```
+
+Now we've got a more resilient structure that will prevent invalid pushes and pops:
+
+```js
+let nsync = new Stack(5);
+nsync.pop(); // Stack underflow!
+nsync.push(`Justin Timberlake`);
+nsync.push(`Lance Bass`);
+nsync.push(`Joey Fatone`);
+nsync.push(`JC Chasez`);
+nsync.push(`Chris Kirkpatrick`);
+nsync.push(`Michael Bublé`); // Stack overflow!
+```
+
+We don't like that dirty pop. 
+
+<a name='why'></a>
+
+## [#](#why) Why Would We Want to Use a Stack?
+
+### 1. Performance? (Probably not)
+
+In some languages, a stack has the advantage of being more performant than alternative data structures like arrays. However, JavaScript arrays are optimized so that you're not likely to be able to beat them at efficiency. `Array.prototype.push()` and `Array.prototype.pop()` are already [**O(1)** efficient](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). So no matter the size of the array, it won't take any longer to push items onto or pop them off of the array.
+
+However, this isn't true about other array methods. When we're not only appending to and removing from one end of an array, we lose the stack-like **O(1)** efficiency. For example, `.shift()`ing an item to the front of an array -- analogous to the bottom of the stack here -- is only **O(n)** efficient, because every single item in the array must have its index incremented. With a new `array[0]`, the item previously at `array[0]` becomes `array[1]`, the item at `array[1]` becomes `array[2]`, etc. *(Technically, [this isn't strictly speaking true in JavaScript due to clever optimizations](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift), but it's how it works conceptually, and the optimizations don't change the **O(n)** efficiency.)*
+
+### 2. Enforcing LIFO
+
+Okay, so arrays' `.push()` and `.pop()` methods are pretty efficient in JavaScript. But that doesn't mean stacks are useless. They could be the right choice in situations where you only care about the value most recently added to a list, and you want to enforce that *only* that value can be accessed.
+
+Say you're building an undo functionality into your drawing web app. Every time a user makes a change to their artwork, you need to push the previous state of the artwork onto a list. Every time a user undoes an action, you need to pop that previous state off the list, so that it becomes the active state of the artwork again.
+
+In this case, it's likely we don't care about accessing artwork states *other than the most recently added one*. We don't care about needing to access the initial state of the artwork, a blank canvas (this would be the bottom of the stack). And the user isn't ever going to ask us to jump directly to the state it was exactly thirty-seven actions back (so we don't need to access by index, i.e. `undoStates[37]`). Only the last action ever matters.
+
+A stack could be the right choice for this use case because it enforces the Last In, First Out (LIFO) access order, preventing less efficient **O(n)** array methods.
