@@ -122,7 +122,7 @@ console.log(fruitStack.size); // 2
 
 Now, you're probably already starting to realize that we could run into some issues here. What happens, for example, if we try to to `.pop()` a value off an empty stack?
 
-Attempting to pop an empty stack is called a ***stack underflow***. You've probably also heard of a ***stack overflow***, which is when a stack's size exceeds a certain limit. Stacks usually set a predetermined bound in order to prevent inifinite-loop bugs that attempt to push items onto the stack over and over indefinitely.
+Attempting to pop an empty stack is called a ***stack underflow***. You've probably also heard of a ***stack overflow***, which is when a stack's size exceeds a certain limit. Stacks usually set a predetermined bound in order to prevent infinite-loop bugs that attempt to push items onto the stack over and over indefinitely.
 
 To make our stack more resilient, let's add some guardrails against underflows and overflows.
 
