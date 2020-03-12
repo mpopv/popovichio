@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import styled from 'styled-components';
 
-const Content = styled.div`
+export const Content = styled.div`
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
