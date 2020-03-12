@@ -80,10 +80,11 @@ export default ({ data, pageContext }) => {
           <Link to={'/'}>{`< Back Home`}</Link>
         </BackArea>
 
-        <h1>{frontmatter.title}</h1>
-        <p>{frontmatter.date}</p>
-
-        <MDXRenderer>{body}</MDXRenderer>
+        <article>
+          <h1>{frontmatter.title}</h1>
+          <p>{frontmatter.date}</p>
+          <MDXRenderer>{body}</MDXRenderer>
+        </article>
 
         <PrevNextArea>
           {previous && (
