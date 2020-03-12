@@ -7,7 +7,7 @@ const siteMetadata = {
 module.exports = {
   siteMetadata,
   plugins: [
-    `gatsby-plubin-styled-components`,
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-mdx`,
