@@ -46,6 +46,9 @@ const BackArea = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
+  & h1 {
+    font-size: 2em;
+  }
 `;
 
 const LinkArea = styled.p``;
@@ -72,6 +75,7 @@ export default ({ data, pageContext }) => {
 
       <Content>
         <BackArea>
+          <h1>Matt Popovich</h1>
           <Link to={'/blog'}>{`< Back to Blog`}</Link>
           <Link to={'/'}>{`< Back Home`}</Link>
         </BackArea>
