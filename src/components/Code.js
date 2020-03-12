@@ -16,7 +16,7 @@ const Pre = styled.pre`
     height: 1.3em;
   }
   font-family: monospace;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 `;
 
@@ -45,8 +45,8 @@ const Code = ({ codeString, language, ...props }) => {
   if (props['react-live']) {
     return (
       <LiveProvider code={codeString} noInline={true} theme={theme}>
-        <LiveEditor />
-        <LiveError />
+        <LiveEditor style={{ fontSize: `14px` }} />
+        <LiveError style={{ fontSize: `15px` }} />
         <div style={{ border: `2px solid #041623`, padding: `20px 25px` }}>
           <LivePreview />
         </div>

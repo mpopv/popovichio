@@ -1,0 +1,207 @@
+@font-face {
+  font-family: 'Marvin Visions';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../static/MarvinVisionsBig-Bold.woff2') format('woff2');
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Acre';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../static/acre-medium-webfont.woff2') format('woff2');
+  font-display: block;
+}
+
+.project-page {
+  font-family: 'Acre';
+  font-weight: 400;
+  background-color: #002634;
+  background-image: linear-gradient(to top, #005d80 15%, #002634 100%);
+}
+
+.project-page li,
+.project-page ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-page .layout {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.project-page a,
+.project-page a:visited {
+  text-decoration: none;
+}
+
+.project-page a,
+.project-page p {
+  font-family: 'Acre';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.project-page p,
+.project-page h1 {
+  color: #fff7e0;
+}
+
+.project-page a,
+.project-page a:visited {
+  color: #ffc04d;
+}
+.project-page a:hover {
+  color: #ff8543;
+}
+
+.project-page .content {
+  max-width: 550px;
+}
+
+.project-page .page-header {
+  color: #fff7e0;
+  margin: 0 0 45px;
+  font-family: 'Marvin Visions';
+  font-weight: 400;
+  font-size: 199px;
+  line-height: 0.73;
+  letter-spacing: 4px;
+  background: linear-gradient(-30deg, #ff384a -100%, #ffc04d 80%, #fff7e0 150%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 550px) {
+  .project-page .page-header {
+    font-size: 100px;
+    letter-spacing: 2px;
+    max-width: 250px;
+  }
+}
+
+.project-page .header {
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 65px 0 20px 0;
+  letter-spacing: 3px;
+}
+
+.project-page .project-area {
+  margin: 50px 0 100px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(12, 375px);
+}
+@media (min-width: 1100px) {
+  .project-page .project-area {
+    width: 1000px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 375px);
+  }
+}
+@media (min-width: 1650px) {
+  .project-page .project-area {
+    width: 1500px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 375px);
+  }
+}
+
+.project-page .project {
+  position: relative;
+  border-radius: 8px;
+  background-color: #196382;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-page .project__image {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  transition: all 0.8s cubic-bezier(0, 0.48, 0, 1.08);
+}
+.project-page .project:hover .project__image {
+  opacity: 0.25;
+}
+.project-page .project .gatsby-image-wrapper {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+}
+.project-page .project__content {
+  z-index: 2;
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+.project-page .project__content h1 {
+  font-size: 50px;
+  max-width: 70%;
+  color: #fff7e0;
+  margin: 0;
+  font-family: 'Marvin Visions';
+  font-weight: 400;
+  line-height: 0.75;
+  letter-spacing: 1px;
+  background: linear-gradient(to top, #c1c9bc 0%, #fff7e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.project-page .project__content > p,
+.project-page .project__content > p > a {
+  max-width: 90%;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 10px 0 0;
+}
+
+.project-page .project__content p {
+  color: #dcdecd;
+}
+
+@media (max-width: 550px) {
+  .project-page .project__content h1 {
+    font-size: 35px;
+  }
+}
+
+.project-page .button,
+.project-page .button:visited {
+  display: inline-block;
+  margin: 15px 5px 0 0;
+  color: #005375;
+  background-color: #bac2b4;
+  padding: 5px 15px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 14px;
+  transition: all 0.8s cubic-bezier(0, 0.48, 0, 1.08);
+}
+.project-page .button--primary,
+.project-page .button--primary:visited {
+  color: #005375;
+  background-color: #ffc04d;
+}
+.project-page .button:hover {
+  color: #005375;
+  background-color: #f9f1d8;
+}

@@ -32,10 +32,16 @@ const IndexPage = () => {
   return (
     <Layout>
       <Seo title="Matt Popovich" />
+
       <Content>
         <div className="content">
           <h1>Matt Popovich</h1>
-          <Link to={'/blog'}>Blog</Link>
+          <div>
+            <Link to={'/blog'}>Blog</Link>
+          </div>
+          <div>
+            <Link to={'/projects'}>Projects</Link>
+          </div>
         </div>
 
         <div className="content">

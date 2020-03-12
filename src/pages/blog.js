@@ -2,6 +2,7 @@ import { graphql, Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
+import Seo from '../components/Seo';
 
 const Content = styled.div`
   width: 100%;
@@ -21,9 +22,12 @@ const PostWrapper = styled.div`
 export default ({ data }) => {
   return (
     <Layout>
+      <Seo title="Blog" />
+
       <Content>
-        <h1>Blog</h1>
-        <Link to={'/'}>{`< Home`}</Link>
+        <h1>Matt Popovich</h1>
+        <p>Blog</p>
+        <Link to={'/'}>{`< Back to Home`}</Link>
         <div>
           {data.allMdx.nodes.map(({ id, excerpt, frontmatter, fields }) => (
             <PostWrapper key={id}>
