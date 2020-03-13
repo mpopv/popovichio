@@ -218,4 +218,6 @@ sayNumberFunctions[2](); // 2
 
 We can't use `let`, so we have to find a new way to enclose a unique value into `newFunction`. Since `var` is function-scoped, we'll need to declare another function and then immediately invoke it. Since we're declaring and invoking a new function on each iteration, our variable `iInner` is being redeclared as a unique variable each time, so we're now enclosing a unique variable with its own unique value on each pass, preserving the value we want.
 
-So remember: closures *don't* freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
+As you've probably noticed, forcing the developer to use closures to detangle local variables from the global state is less than ideal. This was a major impetus for the behavior of `let` in ES6.
+
+But it's still good idea to understand how closures work, and to keep in mind that they don't freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
