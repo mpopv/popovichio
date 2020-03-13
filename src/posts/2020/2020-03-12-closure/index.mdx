@@ -1,0 +1,217 @@
+---
+path: "/blog/closure-javascript"
+title: Understanding Closures in JavaScript
+date: 2020-03-12
+published: true
+---
+
+1. [What's a Closure?](#what)
+2. [Uses for Closures](#uses)
+3. [How Might This Trip Us Up?](#bugs)
+
+<a name='what'></a>
+
+## [#](#what) What's a Closure?
+
+When you declare a function inside another function, a **closure** new environment created by combining the inner function with references to all variables available to it from outer scopes (this concept of all scopes accessible from a certain block is known as the **lexical environment**). In other words, in a closure, all variables accessible to the inner function *remain* accessible to it, even when that inner function is removed and called in some other context.
+
+Let's look at an example:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+
+let sayFullName = makeSayFullNameFunction();
+sayFullName(`Luke`); // Luke Skywalker
+```
+
+Here, `lastName` is block-scoped to `makeSayFullNameFunction`. So it might seem that when we pull out the returned function as `sayFullName` and call it, we'll get an error, because it relies internally on `lastName`, but `lastName` isn't accessible from the global scope.
+
+But in fact, this works just fine. When the inner function is created, `lastName` is **enclosed** (or **closed over**) into the scope of the inner function.
+
+For the purposes of calling the inner function, this:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+```
+
+...is equivalent to this:
+
+```js
+let makeSayFullNameFunction = () => {
+  return (firstName) => {
+    let lastName = `Skywalker`;
+    return `${firstName} ${lastName}`;
+  };
+};
+```
+
+<a name='uses'></a>
+
+## [#](#uses) Uses for Closures
+
+### 1. When a Function Returns a Function
+
+Our example from above is a good example:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+
+let sayFullName = makeSayFullNameFunction();
+sayFullName(`Luke`); // Luke Skywalker
+```
+
+Even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so it was *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere, so that it's not necessary to stuff everything we need in scope into the actual function declaration.
+
+### 2. When a Module Exports a Function
+
+```js
+// sayName.js
+
+let name = `Matt`;
+
+let sayName = () => {
+  console.log(name);
+};
+
+export sayName;
+```
+
+```js
+// index.js
+
+import sayName from '/sayName.js';
+
+sayName(); // Matt
+```
+
+Again, we see that even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so was *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
+
+### 3. Private Variables and Functions
+
+Closures also allow us to create methods that reference internal variables that are otherwise inaccessible outside those methods.
+
+Consider this example:
+
+```js
+let Dog = function () {
+  // this variable is private to the function
+  let happiness = 0;
+  
+  // this inner function is private to the function
+  let increaseHappiness = () => {
+    happiness++;
+  };
+  
+  this.pet = () => {
+    increaseHappiness();
+  };
+  
+  this.tailIsWagging = () => {
+    return happiness > 2;
+  };
+};
+
+let spot = new Dog();
+spot.tailIsWagging(); // false
+spot.pet();
+spot.pet();
+spot.pet();
+spot.tailIsWagging(); // true
+```
+
+This pattern is only possible because references to `happiness` and `increaseHappiness` are preserved in a closure when we instantiate `this.pet` and `this.tailIsWagging`.
+
+<a name='bugs'></a>
+
+## [#](#bugs) How Might This Trip Us Up?
+
+First, we have to remember that we're only enclosing the reference to the *variable*, not its value. So if we reassign the variable after declaring the function...
+
+```js
+let name = `Steve`;
+
+let sayHiSteve = () => {
+  console.log(`Hi, ${name}!`);
+};
+
+// ...many lines later...
+
+name = `Jen`;
+
+// ...many lines later...
+
+sayHiSteve(); // Hi, Jen!
+```
+
+...we might be left with an unwanted result.
+
+In ES5, this often bit developers inside loops due to the behavior of `var`, which was then the only way to declare a variable. Consider the situation where we want to create a group of functions:
+
+```js
+var sayNumberFunctions = [];
+
+for (var i = 0; i < 3; i++) {
+  sayNumberFunctions[i] = () => console.log(i);
+}
+
+sayNumberFunctions[0](); // 2
+sayNumberFunctions[1](); // 2
+sayNumberFunctions[2](); // 2
+```
+
+Though our intention is to enclose the *value* of `i` inside each created function, we are really enclosing a reference to the *variable* `i`. After the loop completed, its value was `2`, and so each function call from then on will always log `2`.
+
+One way to solve this was by declaring and immediately invoking a function with its own scope:
+
+```js
+var sayNumberFunctions = [];
+
+for (var i = 0; i < 3; i++) {
+  let newFunction;
+
+  (function(iEnclosed){
+    newFunction = () => console.log(iEnclosed);
+  })(i);
+
+  sayNumberFunctions[i] = newFunction;
+}
+
+sayNumberFunctions[0](); // 0
+sayNumberFunctions[1](); // 1
+sayNumberFunctions[2](); // 2
+```
+
+But ES6 introduced a better way: using `let` instead of `var` to declare the loop index.
+
+```js
+var sayNumberFunctions = [];
+
+for (let i = 0; i < 3; i++) {
+  sayNumberFunctions[i] = () => console.log(i);
+}
+
+sayNumberFunctions[0](); // 0
+sayNumberFunctions[1](); // 1
+sayNumberFunctions[2](); // 2
+```
+
+The bug arises because `var` (unlike `let`) can be redeclared in the same scope (`var a = 1; var a = 2;` is valid outside strict mode) and because `var` is scoped to the nearest *function*, not the nearest block, unlike `let`.
+
+These quirks made it difficult to understand that a new `var i` was *not* being redeclared on each loop iteration; rather, the same variable -- with its value being updated on each iteration -- was being passed to all of the created functions.
+
+You shouldn't run into this specific problem as long as you use `let` instead of `var` for loop indices -- now that all modern browsers and runtimes support `let`, you should never use `var` within blocks. But it's a useful example to illustrate that closures *don't* freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
