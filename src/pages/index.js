@@ -59,8 +59,9 @@ const IndexPage = () => {
                 </ExtLink>
               </li>
               <li>
-                <ExtLink href="codepen.io/mpopv">
-                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> @mpopv on codepen
+                <ExtLink href="codepen.io/mattpopovich">
+                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> @mattpopovich on
+                  codepen
                 </ExtLink>
               </li>
               <li>
