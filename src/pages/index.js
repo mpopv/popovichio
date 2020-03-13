@@ -75,8 +75,8 @@ const IndexPage = () => {
                 </ExtLink>
               </li>
               <li>
-                <ExtLink href="unsplash.com/@mpopv">
-                  <Emoji alt="A camera">📷</Emoji> @mpopv on unsplash
+                <ExtLink href="unsplash.com/@mattpopovich">
+                  <Emoji alt="A camera">📷</Emoji> @mattpopovich on unsplash
                 </ExtLink>
               </li>
               <li>
@@ -95,8 +95,8 @@ const IndexPage = () => {
                 </ExtLink>
               </li>
               <li>
-                <ExtLink href="dev.to/mp">
-                  <Emoji alt="A pencil">✏️</Emoji> @mp on dev.to
+                <ExtLink href="dev.to/mattpopovich">
+                  <Emoji alt="A pencil">✏️</Emoji> @mattpopovich on dev.to
                 </ExtLink>
               </li>
             </ul>
