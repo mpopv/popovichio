@@ -1,13 +1,77 @@
 ---
-path: "/blog/scope-javascript"
-title: Understanding Scope and Closures in JavaScript
+path: "/blog/closure-javascript"
+title: Understanding Closure in JavaScript
 date: 2020-03-13
-published: false
+published: true
 ---
 
-## Uses for Closures
+## What is Closure?
 
-### Referencing Variables Enclosed in Scope Across Modules
+When you declare a function inside another function, **closure** refers to the way that all variables accessible to the inner function remain accessible to it, even when that inner function is removed and called in some other context where those variables wouldn't seem to be accessible to it.
+
+Let's look at an example:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+
+let sayFullName = makeSayFullNameFunction();
+sayFullName(`Luke`); // Luke Skywalker
+```
+
+Here, `lastName` is block-scoped to `makeSayFullNameFunction`. It's not accessible from the global scope. So it might seem that when we pull out the returned function as `sayFullName` and call it, we'll get an error.
+
+But in fact, this works just fine. When the inner function is created, `lastName` is **enclosed** (or **closed over**) in the scope of the inner function.
+
+This:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+```
+
+...is equivalent to this:
+
+```js
+let makeSayFullNameFunction = () => {
+  return (firstName) => {
+    let lastName = `Skywalker`;
+    return `${firstName} ${lastName}`;
+  };
+};
+```
+
+...for the purposes of calling the inner function.
+
+## Uses for Closure
+
+### 1. When a Function Returns a Function
+
+For this, we can review our example from before:
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+
+let sayFullName = makeSayFullNameFunction();
+sayFullName(`Luke`); // Luke Skywalker
+```
+
+Even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so it was *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
+
+### 2. When a Module Exports a Function
 
 ```js
 // sayName.js
@@ -29,23 +93,7 @@ import sayName from '/sayName.js';
 sayName(); // Matt
 ```
 
-Even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
-
-### Referencing Variables Enclosed in Scope Across Functions
-
-```js
-let makeSayFullNameFunction = () => {
-  let lastName = `Skywalker`;
-  return (firstName) => {
-    return `${firstName} ${lastName}`;
-  };
-};
-
-let sayFullName = makeSayFullNameFunction();
-sayFullName(`Luke`); // Luke Skywalker
-```
-
-So again, we see that even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so is *enclosed* in the function's local scope. This, again, allows us to reference it even when we use the function elsewhere.
+Again, we see that even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
 
 ## How Might This Trip Us Up?
 
@@ -69,7 +117,7 @@ sayHiSteve(); // Hi, Jen!
 
 ...we might be left with an unwanted result.
 
-In ES5, this often bit developers inside loops. Consider the situation where we want to create a group of functions:
+In ES5, this often bit developers inside loops due to the behavior of `var`, which was then the only way to declare a variable. Consider the situation where we want to create a group of functions:
 
 ```js
 var sayNumberFunctions = [];
@@ -83,7 +131,7 @@ sayNumberFunctions[1](); // 2
 sayNumberFunctions[2](); // 2
 ```
 
-Though our intention was to enclose the *value* of `i` inside each created function, we were really enclosing a reference to the *variable* `i`. So after the loop completed, its value was `3`, and so each function will always log `3`.
+Though our intention is to enclose the *value* of `i` inside each created function, we are really enclosing a reference to the *variable* `i`. After the loop completed, its value was `2`, and so each function call from then on will always log `2`.
 
 One way to solve this was by declaring and immediately invoking a function with its own scope:
 
@@ -122,8 +170,8 @@ sayNumberFunctions[2](); // 2
 The `var` bug came from a combination of two quirks of `var`:
 
 1. `var` can be redeclared. `var a = 1; var a = 2;` is valid outside strict mode.
-2. `var` is scoped to the nearest *function*, not the nearest block so reassignment or redeclaration of `var` variables outside of any functions would reassign any other references to that variable also outside of functions.
+2. `var` is scoped to the nearest *function*, not the nearest block, so reassignment or redeclaration of `var` variables outside of any functions would reassign any other references to that variable also outside of functions.
 
-`let` can't be redeclared in the same scope, and using it to redeclare a variable with the same name in a different scope will result in two entirely separate variables.
+`let` can't be redeclared in the same block scope, and using it to redeclare a variable with the same name in a different block scope will result in two entirely separate variables. Since each iteration of a `for` loop has its own block scope, `let`s declared there are independent of one another.
 
 The bottom line: when in doubt, use `let`.

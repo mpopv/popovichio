@@ -2,7 +2,7 @@
 path: "/blog/queue-javascript"
 title: How (and Why) To Implement a Queue in JavaScript
 date: 2020-03-12
-published: false
+published: true
 ---
 
 1. [What's a Queue?](#what)
@@ -13,9 +13,15 @@ published: false
 
 ## [#](#what) What's a Queue?
 
-In computer science, a **queue** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) (meaning a list of items, similar to an array). What makes a queue distinct is that it's constrained by specific rules governing how items can be added and removed, much like a stack. *(If you're not sure what a stack is, it's a good idea to read [this post](/2020/2020-03-11-stack-javascript/) before continuing.)*
+In computer science, a **queue** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) (meaning a list of items, similar to an array). What makes a queue distinct is that it's constrained by specific rules governing how items can be added and removed, much like a stack. *(If you're not sure what a stack is, check out my previous post, [How (and Why) To Implement a Stack in JavaScript](/2020/2020-03-11-stack-javascript/).)*
 
 While a stack enforces a Last In, First Out (LIFO) order, where items can only be added to or removed from a *single end* of the stack, a queue enforces a **First In, First Out (FIFO)** order, where items can only be inserted into one end of the queue (the **tail**) and only removed from the *other* end of the queue (the **head**).
+
+<br/>
+
+![Balls being added and removed in a Last In, First Out order to a stack, and balls being added removed in a First In, First Out order to a queue](https://i.imgur.com/4bYLzus.jpg)
+
+<br/>
 
 Inserting an item into a queue is called an **enqueue** operation, and removing an item is called a **dequeue** operation.
 
