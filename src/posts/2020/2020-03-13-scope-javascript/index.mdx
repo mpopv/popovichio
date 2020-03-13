@@ -1,0 +1,129 @@
+---
+path: "/blog/scope-javascript"
+title: Understanding Scope and Closures in JavaScript
+date: 2020-03-13
+published: false
+---
+
+## Uses for Closures
+
+### Referencing Variables Enclosed in Scope Across Modules
+
+```js
+// sayName.js
+
+let name = `Matt`;
+
+let sayName = () => {
+  console.log(name);
+};
+
+export sayName;
+```
+
+```js
+// index.js
+
+import sayName from '/sayName.js';
+
+sayName(); // Matt
+```
+
+Even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
+
+### Referencing Variables Enclosed in Scope Across Functions
+
+```js
+let makeSayFullNameFunction = () => {
+  let lastName = `Skywalker`;
+  return (firstName) => {
+    return `${firstName} ${lastName}`;
+  };
+};
+
+let sayFullName = makeSayFullNameFunction();
+sayFullName(`Luke`); // Luke Skywalker
+```
+
+So again, we see that even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so is *enclosed* in the function's local scope. This, again, allows us to reference it even when we use the function elsewhere.
+
+## How Might This Trip Us Up?
+
+First, we have to remember that we're only enclosing the reference to the *variable*, not its value. So if we reassign the variable after declaring the function...
+
+```js
+let name = `Steve`;
+
+let sayHiSteve = () => {
+  console.log(`Hi, ${name}!`);
+};
+
+// ...many lines later...
+
+name = `Jen`;
+
+// ...many lines later...
+
+sayHiSteve(); // Hi, Jen!
+```
+
+...we might be left with an unwanted result.
+
+In ES5, this often bit developers inside loops. Consider the situation where we want to create a group of functions:
+
+```js
+var sayNumberFunctions = [];
+
+for (var i = 0; i < 3; i++) {
+  sayNumberFunctions[i] = () => console.log(i);
+}
+
+sayNumberFunctions[0](); // 2
+sayNumberFunctions[1](); // 2
+sayNumberFunctions[2](); // 2
+```
+
+Though our intention was to enclose the *value* of `i` inside each created function, we were really enclosing a reference to the *variable* `i`. So after the loop completed, its value was `3`, and so each function will always log `3`.
+
+One way to solve this was by declaring and immediately invoking a function with its own scope:
+
+```js
+var sayNumberFunctions = [];
+
+for (var i = 0; i < 3; i++) {
+  let newFunction;
+
+  (function(iEnclosed){
+    newFunction = () => console.log(iEnclosed);
+  })(i);
+
+  sayNumberFunctions[i] = newFunction;
+}
+
+sayNumberFunctions[0](); // 0
+sayNumberFunctions[1](); // 1
+sayNumberFunctions[2](); // 2
+```
+
+But ES6 introduced a better way: using `let`.
+
+```js
+var sayNumberFunctions = [];
+
+for (let i = 0; i < 3; i++) {
+  sayNumberFunctions[i] = () => console.log(i);
+}
+
+sayNumberFunctions[0](); // 0
+sayNumberFunctions[1](); // 1
+sayNumberFunctions[2](); // 2
+```
+
+The `var` bug came from a combination of two quirks of `var`:
+
+1. `var` can be redeclared. `var a = 1; var a = 2;` is valid outside strict mode.
+2. `var` is scoped to the nearest *function*, not the nearest block so reassignment or redeclaration of `var` variables outside of any functions would reassign any other references to that variable also outside of functions.
+
+`let` can't be redeclared in the same scope, and using it to redeclare a variable with the same name in a different scope will result in two entirely separate variables.
+
+The bottom line: when in doubt, use `let`.
