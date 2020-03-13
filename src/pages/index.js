@@ -50,42 +50,53 @@ const IndexPage = () => {
             <ul>
               <li>
                 <ExtLink href="twitter.com/mpopv">
-                  <Emoji alt="A bird">🐦</Emoji> twitter
+                  <Emoji alt="A bird">🐦</Emoji> @mpopv on twitter
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="github.com/mpopv">
-                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> github
+                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> @mpopv on github
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="codepen.io/mpopv">
-                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> codepen
+                  <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> @mpopv on codepen
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="instagram.com/mpopv">
-                  <Emoji alt="A camera">📷</Emoji> insta
+                  <Emoji alt="A camera">📷</Emoji> @mpopv on insta
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="instagram.com/mattpopovichart">
-                  <Emoji alt="A paint palette">🎨</Emoji> art insta
+                  <Emoji alt="A paint palette">🎨</Emoji> @mattpopovichart on
+                  insta
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="unsplash.com/@mpopv">
-                  <Emoji alt="A camera">📷</Emoji> unsplash
+                  <Emoji alt="A camera">📷</Emoji> @mpopv on unsplash
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="flickr.com/photos/mattpopovich">
-                  <Emoji alt="A camera">📷</Emoji> flickr
+                  <Emoji alt="A camera">📷</Emoji> mattpopovich on flickr
                 </ExtLink>
               </li>
               <li>
                 <ExtLink href="linkedin.com/in/mattpopovich">
-                  <Emoji alt="A dress shirt">👔</Emoji> linkedin
+                  <Emoji alt="A dress shirt">👔</Emoji> mattpopovich on linkedin
+                </ExtLink>
+              </li>
+              <li>
+                <ExtLink href="medium.com/@mattpopovich">
+                  <Emoji alt="A pencil">✏️</Emoji> @mattpopovich on medium
+                </ExtLink>
+              </li>
+              <li>
+                <ExtLink href="dev.to/mp">
+                  <Emoji alt="A pencil">✏️</Emoji> @mp on dev.to
                 </ExtLink>
               </li>
             </ul>
