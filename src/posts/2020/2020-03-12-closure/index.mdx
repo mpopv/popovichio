@@ -13,7 +13,9 @@ published: true
 
 ## [#](#what) What's a Closure?
 
-When you declare a function inside another function, a **closure** is the new environment created by combining the inner function with references to all variables available to it from outer scopes (this concept of all scopes accessible from a certain block is known as the **lexical environment**). In other words, in a closure, all variables accessible to the inner function *remain* accessible to it, even when that inner function is removed and called in some other context. The inner function remembers all the stuff it has access to at the time of its declaration.
+When you declare a function inside another function, a **closure** is the new environment created by combining the inner function with references to all variables available to it from outer scopes (this concept of all scopes accessible from a certain block is known as the **lexical environment**). 
+
+In other words, in a closure, all variables accessible to the inner function -- including variables declared outside the function itself -- *remain* accessible to it, even when that inner function is removed and called in some other context. The inner function remembers all the stuff it has access to at the time of its declaration.
 
 Let's look at an example:
 
@@ -194,9 +196,7 @@ sayNumberFunctions[1](); // 1
 sayNumberFunctions[2](); // 2
 ```
 
-But what if for some reason we can't use `let`? Alternatively, we could work around this problem with another closure.
-
-If we declare and immediately invoke a function with its own closure...
+But what if for some reason we can't use `let`? Alternatively, we could work around this problem by changing what's being enclosed:
 
 ```js
 var sayNumberFunctions = [];
@@ -204,8 +204,8 @@ var sayNumberFunctions = [];
 for (var i = 0; i < 3; i++) {
   let newFunction;
 
-  (function(iEnclosed){
-    newFunction = () => console.log(iEnclosed);
+  (function(iInner){
+    newFunction = () => console.log(iInner);
   })(i);
 
   sayNumberFunctions[i] = newFunction;
@@ -216,6 +216,6 @@ sayNumberFunctions[1](); // 1
 sayNumberFunctions[2](); // 2
 ```
 
-...a new function-scoped version of `iEnclosed` is being created on each iteration, and so the reference to `iEnclosed` in the returned function points to the right value.
+We can't use `let`, so we have to find a new way to enclose a unique value into `newFunction`. Since `var` is function-scoped, we'll need to declare another function and then immediately invoke it. Since we're declaring and invoking a new function on each iteration, our variable `iInner` is being redeclared as a unique variable each time, so we're now enclosing a unique variable with its own unique value on each pass, preserving the value we want.
 
 So remember: closures *don't* freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
