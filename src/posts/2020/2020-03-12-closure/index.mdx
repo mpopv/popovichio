@@ -33,7 +33,7 @@ sayFullName(`Luke`); // Luke Skywalker
 
 Here, `lastName` is block-scoped to `makeSayFullNameFunction`. So it might seem that when we pull out the returned function as `sayFullName` and call it, we'll get an error, because it relies internally on `lastName`, but `lastName` isn't accessible from the global scope.
 
-But in fact, this works just fine. When the inner function is created, `lastName` is **enclosed** (or **closed over**) into the scope of the inner function.
+But in fact, this works just fine. When the inner function is created, `lastName` is **enclosed** (or **closed over**) into the closure of the inner function, so it is considered in scope no matter where the function is called.
 
 For the purposes of calling the inner function, this:
 
@@ -79,7 +79,7 @@ let sayFullName = makeSayFullNameFunction();
 sayFullName(`Luke`); // Luke Skywalker
 ```
 
-Even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so it was *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere, so that it's not necessary to stuff everything we need in scope into the actual function declaration.
+Even though `lastName` doesn't appear to be in scope when `sayFullName` is called, it was in scope when the function was declared, and so a reference to it was enclosed in the function's closure. This allows us to reference it even when we use the function elsewhere, so that it's not necessary to stuff everything we need in scope into the actual function declaration.
 
 ### 2. When a Module Exports a Function
 
@@ -103,7 +103,7 @@ import sayName from '/sayName.js';
 sayName(); // Matt
 ```
 
-Again, we see that even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so was *enclosed* in the function's local scope. This allows us to reference it even when we use the function elsewhere.
+Again, we see that even though `name` doesn't appear to be in scope when `sayName` is called, it was in scope when the function was declared, and so a reference to it was enclosed in the function's closure. This allows us to reference it even when we use the function elsewhere.
 
 ### 3. Private Variables and Functions
 
@@ -220,4 +220,4 @@ We can't use `let`, so we have to find a new way to enclose a unique value into 
 
 As you've probably noticed, forcing the developer to use closures to detangle local variables from the global state is less than ideal. This was a major impetus for the behavior of `let` in ES6.
 
-But it's still good idea to understand how closures work, and to keep in mind that they don't freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
+But it's still a good idea to understand how closures work, and to keep in mind that they don't freeze the lexical environment's *values*; they only preserve references to *variables* that are in scope.
