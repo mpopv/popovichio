@@ -1,6 +1,6 @@
 ---
-path: "/blog/queue-javascript"
-title: How (and Why) To Implement a Queue in JavaScript
+path: '/blog/queue-javascript'
+title: How To Implement a Queue in JavaScript -- and Beat Arrays at Their Own Game
 date: 2020-03-13
 published: false
 ---
@@ -8,50 +8,55 @@ published: false
 1. [What's a Queue?](#what)
 2. [Why Might We Want to Use a Queue?](#why)
 3. [Implementing a Basic Queue](#how)
+4. [Head to Head Performance Battle: Queue vs. Array](#performance)
 
-<a name='what'></a>
+<a name="what"></a>
 
 ## [#](#what) What's a Queue?
 
-In computer science, a **queue** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) (meaning a list of items, similar to an array). What makes a queue distinct is that it's constrained by specific rules governing how items can be added and removed, much like a stack. *(If you're not sure what a stack is, check out my previous post, [How (and Why) To Implement a Stack in JavaScript](/2020/2020-03-11-stack-javascript/).)*
+In computer science, a **queue** is a data structure, and one of the [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type). Specifically, it's a type of [collection](<https://en.wikipedia.org/wiki/Collection_(abstract_data_type)>) (meaning a list of items, similar to an array). What makes a queue distinct is that it's constrained by specific rules governing how items can be added and removed, much like a stack. _(If you're not sure what a stack is, check out my previous post, [How (and Why) To Implement a Stack in JavaScript](/2020/2020-03-11-stack-javascript/).)_
 
-While a stack enforces a Last In, First Out (LIFO) order, where items can only be added to or removed from a *single end* of the stack, a queue enforces a **First In, First Out (FIFO)** order, where items can only be inserted into one end of the queue (the **tail**) and only removed from the *other* end of the queue (the **head**).
+While a stack enforces a Last In, First Out (LIFO) order, where items can only be added to or removed from a _single end_ of the stack, a queue enforces a **First In, First Out (FIFO)** order, where items can only be inserted into one end of the queue (the **tail**) and only removed from the _other_ end of the queue (the **head**).
 
-<br/>
+<br />
 
 ![Balls being added and removed in a Last In, First Out order to a stack, and balls being added removed in a First In, First Out order to a queue](https://i.imgur.com/4bYLzus.jpg)
 
-<br/>
+<br />
 
 Inserting an item into a queue is called an **enqueue** operation, and removing an item is called a **dequeue** operation.
 
-<a name='why'></a>
+<a name="why"></a>
 
 ## [#](#why) Why Might We Want to Use a Queue?
 
-[As we learned](/2020/2020-03-11-stack-javascript/), a stack doesn't provide much of a performance benefit over a native JavaScript array, because the `Array.prototype.push()` and `Array.prototype.pop()` methods have been optimized to provide a stack-like [**O(1)** efficiency](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). This means that no matter how large the array is, push and pop operations should take around the same amount of time.
+[As we learned](/2020/2020-03-11-stack-javascript/), a stack doesn't provide much of a performance benefit over a native JavaScript array, because the `Array.prototype.push()` and `Array.prototype.pop()` methods have already been optimized to provide a stack-like [nearly-**O(1)** efficiency](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). This means that no matter how large the array is, push and pop operations should take around the same amount of time.
 
-On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are only **O(n)** efficient, meaning the greater the length of the array is, the longer they will take:
+On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are closer to **O(n)** efficient, meaning the greater the length of the array is, the longer they will take:
 
-<br/>
+<br />
 
 ![Two charts showing push performance barely changing over time and unshift performance increasing exponentially over time](https://i.imgur.com/EK5UNBD.png)
-*The performance of `.push()` doesn't change much as the array grows, but `.unshift()` gets substantially slower. [Source](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift)*
+_The performance of `.push()` doesn't change much as the array grows, but `.unshift()` gets substantially slower. [Source](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift)_
 
-<br/>
+<br />
 
-This is because every single item in the array must have its index incremented. With a new `array[0]`, the item previously at `array[0]` becomes `array[1]`, the item at `array[1]` becomes `array[2]`, etc. *(Technically, [this isn't strictly speaking true in JavaScript due to clever optimizations](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift), but it's how it works conceptually, and the optimizations don't change the **O(n)** efficiency.)*
+This is because every single item in the array must have its index incremented when an item is added to, or removed from, the front of an array. With a new `array[0]`, the item previously at `array[0]` becomes `array[1]`, the item previously at `array[1]` becomes `array[2]`, etc. _(Technically, [this isn't strictly speaking true in JavaScript due to some clever optimizations](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift), but it's how it works conceptually)_.
 
-A queue provides an intriguing alternative: by limiting ourselves to a First In, First Out method of interacting with a list, we can reduce that **O(n)** to an **O(1)** efficiency.
+A queue provides an intriguing alternative: by limiting ourselves to a First In, First Out method of interacting with a list, could we reduce that **O(n)** to an **O(1)** efficiency?
 
-<a name='how'></a>
+Let's find out.
+
+<a name="how"></a>
 
 ## [#](#how) How to Implement a Basic Queue
 
-Conceptually, a stack allowed us to keep its add/remove operations efficient by keeping track of the index of the item at one end of the list. So with a queue, since we're interacting with *both* ends of the list, we'll need to keep track of *both* ends' indices:
+Conceptually, a stack allowed us to keep its add/remove operations efficient by keeping track of the index of the item at one end of the list. So with a queue, since we're interacting with _both_ ends of the list, we'll need to keep track of _both_ ends' indices.
+
+Let's start by creating a function with a hash table (another term for an object) to store the data in the queue, and the indices for the queue's tail and head.
 
 ```js
-function Queue () {
+function Queue() {
   let data = {};
   let headIndex = 0;
   let tailIndex = 0;
@@ -61,36 +66,175 @@ function Queue () {
 ### Implementing `.enqueue()`
 
 ```js
-function Queue () {
+function Queue() {
   let data = {};
-  let headIndex = 0;
-  let tailIndex = 0;
+  let head = 0;
+  let tail = 0;
 
-  this.enqueue = function () {
-    data[tailIndex];
-    tailIndex++;
-  }
+  this.enqueue = function(item) {
+    data[tail] = item;
+    tail++;
+  };
 }
 ```
 
 ### Implementing `.dequeue()`
 
 ```js
-function Queue () {
+function Queue() {
   let data = {};
   let head = 0;
   let tail = 0;
 
-  this.enqueue = function () {
-    data[tail];
+  this.enqueue = function(item) {
+    data[tail] = item;
     tail++;
-  }
+  };
 
-  this.dequeue = function () {
+  this.dequeue = function() {
     let item = data[head];
     delete data[head];
     head++;
     return item;
-  }
+  };
 }
 ```
+
+<a name="performance"></a>
+
+## [#](#performance) Head to Head Performance Battle: Queue vs. Array
+
+This is it. The big show. The match you've been waiting for. The Battle of the Lists.
+
+In one corner: the native JavaScript array. One list to rule them all, a Swiss army knife of methods -- but is it just too big and slow to compete against a lean young upstart?
+
+And in the other corner: the challenger, a basic queue we wrote in only 17 lines of code! Is is it too small to go toe-to-toe with the defending champ? We're about to find out.
+
+**The below code block is live-rendering React** (scroll to below the code block to see our test component -- it's the white rectangle stuck to the bottom of the code block).
+
+In the code below, we will:
+
+- Declare our Queue function
+- Set up a `testList` function that will enqueue onto, and then dequeue from, a given list a certain number of times, using `performance.now()`
+- Build a small React component that allows us to input the number of times to enqueue/dequeue, allows us to click to start tests using both a native JavaScript array and our `Queue` function, and then displays the time in milliseconds to enqueue/dequeue the given number of items -- along with which list was faster.
+
+```jsx react-live
+function Queue() {
+  let data = {};
+  let head = 0;
+  let tail = 0;
+
+  this.enqueue = function(item) {
+    data[tail] = item;
+    tail++;
+  };
+
+  this.dequeue = function() {
+    let item = data[head];
+    delete data[head];
+    head++;
+    return item;
+  };
+}
+
+function testList(count, enqueueFn, dequeueFn) {
+  let startTime = performance.now();
+  for (var i = 0; i < count; i++) {
+    enqueueFn();
+  }
+  for (var i = 0; i < count; i++) {
+    dequeueFn();
+  }
+  let endTime = performance.now();
+  return endTime - startTime;
+}
+
+const TestArea = props => {
+  const [count, setCount] = React.useState(500);
+  const [resultQueue, setResultQueue] = React.useState(0);
+  const [resultArray, setResultArray] = React.useState(0);
+
+  const runTest = () => {
+    let queue = new Queue();
+    let array = [];
+
+    let nextResultQueue = testList(
+      count,
+      () => {
+        queue.enqueue(1);
+      },
+      () => {
+        queue.dequeue();
+      }
+    );
+
+    let nextResultArray = testList(
+      count,
+      () => {
+        array.unshift(1);
+      },
+      () => {
+        array.pop();
+      }
+    );
+
+    setResultQueue(nextResultQueue);
+    setResultArray(nextResultArray);
+  };
+
+  return (
+    <div style={{ padding: `0 20px 40px` }}>
+      <h2 style={{ color: 'steelblue' }}>Performance Battle</h2>
+
+      <div>
+        Number of enqueues / dequeues:
+        <input
+          type="text"
+          value={count}
+          onChange={e => setCount(e.target.value)}
+        />
+      </div>
+      {count > 99999 && (
+        <div style={{ color: 'red' }}>
+          Warning! This many enqueues / dequeues may slow or crash your browser!
+        </div>
+      )}
+      <button onClick={runTest}>Run test</button>
+
+      <br />
+      <br />
+
+      <div>Queue: {resultQueue}</div>
+      <div>Array: {resultArray}</div>
+    </div>
+  );
+};
+
+render(<TestArea />);
+```
+
+Try running the test with 5000 enqueues/dequeues, then 20000, and finally 50000, and see what happens.
+
+.
+
+.
+
+.
+
+.
+
+Did you try it?
+
+.
+
+.
+
+.
+
+Neat, huh?
+
+Even increasing the number by _orders of maginitude_ barely budges the time it takes for the queue operations to finish, while the array operations start neck-and-neck with the queue at a low number, but quickly start to balloon as it gets larger.
+
+Can you believe it? We beat native JavaScript arrays at their own game.
+
+It's official: Queues are FIFO World Champs.
