@@ -1,0 +1,25 @@
+---
+path: '/blog/big-o-notation'
+title: Big O Notation
+date: 2020-03-13
+published: false
+---
+
+- runtime: literally, the time it takes a program to run
+- big o notation: express runtime in terms of how quickly it grows relative to input, as input grows arbitrarily large
+
+talk about WORST AND BEST CASE:
+
+```js
+let contains = (haystack, needle) => {
+  for (item of haystack) {
+    if (item === needle) return true;
+  }
+};
+```
+
+- Above: Worst case O(1) (first item is needle), best case O(n) (last item is needle, must loop through all).
+
+- SPACE COMPLEXITY: similar rules apply. are we appending item at index to an array on each loop? then space complexity is O(n). are we returning if found, like above? Then space complexity is O(1).
+
+- think (and TALK) through time and space complexity AS YOU DESIGN the algorithm.
