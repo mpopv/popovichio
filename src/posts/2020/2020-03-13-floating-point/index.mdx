@@ -1,0 +1,34 @@
+---
+path: '/blog/floating-point'
+title: Floating Point Numbers
+date: 2020-03-13
+published: false
+---
+
+Try `0.1 + 0.2 === 0.3` in JavaScript. What happens?
+
+This is because all numbers in JS are floating point numbers. What does this mean?
+
+Really, this a problem common to all _base n_ number systems; none can cleanly express all fractions. In fact, I bet you're more familiar with this issue than you think.
+
+We humans usually use _base 10_ numbers. This means that any fraction that uses a _prime factor_ of the base can be expressed cleanly. 10's prime factors are 2 and 5.
+
+Because 2 and 5 are prime factors of 10, fractions that use a prime factor of 10 can be expressed cleanly in decimal. 1/3, on the other hand, cannot. In decimal form, it's 0.333333333... repeating endlessly. This is really the same error as we run into in JS -- it's only the base that has changed, so we encounter it in different operations.
+
+Floating point numbers are _base 2_, so certain operations where the denominator isn't divisible by 2 are prone to rounding errors, such as:
+
+```
+0.1 + 0.2 // 0.30000000000000004
+0.2 + 0.7 // 0.8999999999999999
+0.3 + 0.6 // 0.8999999999999999
+```
+
+## Working around this
+
+1. Always round before displaying
+
+2. Save numbers as strings (the twitter API is known to do this)
+
+3. Use a special decimal data type library, like BigDecimal
+
+4. Multiply up to integers and work with integers only
