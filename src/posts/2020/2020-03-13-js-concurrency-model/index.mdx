@@ -1,0 +1,77 @@
+---
+path: '/blog/js-concurrency-model'
+title: The JavaScript Concurrency Model
+date: 2020-03-13
+published: false
+---
+
+Single-threaded, meaning one thread per process, so one line of code is executed at a time.
+
+## The Engine
+
+A JavaScript engine, such as V8 (which powers Chrome and Node.js), consists of two main parts:
+
+### Call Stack
+
+Where stack frames are added and removed as code executes. As JavaScript is single-threaded, it has a single Call Stack.
+
+#### Why a stack?
+
+The Call Stack's job is to record _where_ we are in the program; that is, which line of code is currently being executed. Since functions can be nested inside one another, we want to execute the most deeply-nested calls first. Consider this example:
+
+```js
+let firstName = `Carol`;
+
+function sayName() {
+  function constructName() {
+    return `${firstName} Danvers`;
+  }
+  console.log(constructName());
+}
+
+sayName();
+```
+
+In this example, `sayName()` would be added to the list of things to execute, followed by `constructName()` (because it is called inside `sayName()`).
+
+Why does this list need to be a stack? Imagine it were a queue, with a First In, First Out access order. That would mean that, since it was added to the list first, `sayName()` would be executed first. But `sayName()` _relies_ on the results of `constructName()`! So we _have_ to execute `constructName()` first, in order to execute `sayName()` properly.
+
+Instead, since the Call Stack is a stack, with a Last In, First Out access order, we execute the last thing added, `constructName()`, and then `sayName()`. This allows us to nest functions within functions without breaking our program.
+
+#### Stack Frames
+
+Each item added to the Call Stack is called a _Stack Frame_. Ever had to look through a stacktrace when a program throws an error? You're looking through Stack Frames representing the state of the Call Stack at the time the error occured.
+
+#### Stack overflow
+
+Try this code in Node or your browser console:
+
+```js
+function recursive() {
+  recursive();
+}
+
+recursive();
+```
+
+What happened?
+
+You've just tried to add items to the call stack over and over infinitely.
+
+Stacks usually enforce a maximum size to prevent running out of memory and crashing. In JavaScript, it's the maximum size identified in `RangeError: Maximum call stack size exceeded`. If you see this error, it's probably because you're accidentally calling something recursively like this.
+
+### Memory Heap
+
+The Memory Heap is where new declarations are allocated space in memory.
+
+#### Why a heap?
+
+## The Runtime
+
+In addition to these are several more pieces provided by the _runtime_.
+
+### Message queue and event loop
+
+A main feature of JavaScript is _non-blocking I/O_. This enables us to write JavaScript that does things like goes off and makes a request, waits for a response, and _then_ executes a function.
+
+But this doesn't really work with the structure we've outlined so far. If functions are pushed onto the call stack as soon as they're executed, and the last one pushed on has to be taken off first, how do we properly
