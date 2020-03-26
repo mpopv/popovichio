@@ -1,0 +1,41 @@
+---
+path: '/blog/new-keyword'
+title: The `new` Keyword in JavaScript
+date: 2020-03-13
+published: false
+---
+
+## What the `new` keyword does
+
+1. Create a new plain object
+
+2. Calls the function referenced with `new` as the constructor function for the new object, and bind's the constructor's `this` to the new object.
+
+3. The new object becomes the returned result of the expression--_unless_ the constructor function returns its own object, in which case _that_ object is returned.
+
+Compare:
+
+```js
+function Car(make) {
+  this.make = make;
+}
+
+let car = new Car('Honda'); // { make: 'Honda' }
+console.log(car.make); // 'Honda'
+```
+
+```js
+function Car(make, model) {
+  this.make = make;
+  return { model };
+}
+
+let car = new Car('Honda', 'Civic'); // { model: 'Civic' }
+console.log(car.make); // 'undefined
+```
+
+In the second case, returning an object from the constructor function returns _that_ object from the `new` expression rather than the new object we've created and bound the constructor's `this` to. So, properties set on the constructor's `this` are _not_ available in the result of the `new` expression.
+
+## Classes and `new`
+
+In JavaScript, classes are essentially syntactic sugar for functions. So while a class declaration will look different from a constructor function, under the hood they are being called the same way.
