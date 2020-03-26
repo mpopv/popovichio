@@ -1,0 +1,42 @@
+---
+path: '/blog/js-proxy'
+title: Why You'd Want to Use Proxy in JavaScript
+date: 2020-03-13
+published: false
+---
+
+What's a Proxy? Well, think of what "proxy" means -- something that sits between you and the thing you're using it to work with.
+
+That's true here as well. A Proxy lets us get between an object and the way we use it, by not just exposing methods, but intercepting and rewriting _fundamental_ object operations like simply reading or setting a property.
+
+These are called _traps_. Let's see some ways of using them:
+
+# Defaults
+
+Let's say we have a list of students.
+
+```js
+let names = {
+  [001]: { first: `Jane`, last: `Robinson` },
+  [002]: { first: `Chris`, last: `Jones` },
+  [003]: { first: `Jordan`, last: `Zhang` },
+};
+```
+
+We want to access students by ID to get their name. However, we also want to _default_ to `Firstname Lastname` if a student hasn't been assigned to a retrieved ID.
+
+We could write that as a function, but that's less portable then an object we can pass around and use in different contexts. With a Proxy, we can bake that default behaviour _into the object itself_.
+
+```js
+let handler = {
+  get: function(target, name) {
+    return name in target
+      ? target[name]
+      : { first: `Firstname`, last: `Lastname` };
+  },
+};
+
+let namesWithDefault = new Proxy(names, handler);
+```
+
+Side note: in most situations where you're checking the existence of a property, you're probably most familiar with the `object.hasOwnProperty`. Most of the time, we want to use that method because it _excludes_ inherited properties, and we usually only want to check properties we've added. But in this case, since our getter is being called _every time_ a property is accessed, checking with `.hasOwnProperty` here will make all inherited properties inaccessible! So this is one of the less common cases where we prefer the `in` operator, which checks against all of an object's properties.
