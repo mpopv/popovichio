@@ -1,6 +1,106 @@
 ---
 path: '/blog/call-bind-apply'
-title: Call, Bind, Apply, Oh My! Invoking and Binding Functions in JavaScript
+title: Call, Bind, Apply, Oh My! Invoking and Binding Functions and Lexical `this` in JavaScript
 date: 2020-03-13
 published: false
 ---
+
+In JavaScript, `this` is an object that refers to the current execution context.
+
+This means it could refer to:
+
+1. Outside of any functions, `this` refers to the _global object_ (i.e. `window` in the browser and `global` in Node).
+
+```
+var name = 'Jim';
+console.log(this.name): // Jim
+```
+
+(side note: this won't work with `const` or `let` because those declarations do not add a property to the global object.)
+
+2. In a function that is being called as a method on an object, `this` is _implicitly bound_ to that object. In that case, it refers to the object it was bound to:
+
+```
+let person = {
+  name: 'Jim',
+  sayName() {
+    console.log(this.name);
+  }
+};
+
+person.sayName(); // Jim
+```
+
+3. The `new` keyword provides a method of creating a new object with its own `this`. You can combine this behavior with rule 2 like so:
+
+```
+function Person(name) {
+  this.name = name;
+  this.sayName = function () {
+    console.log(this.name);
+  }
+};
+
+let person = new Person('Jim');
+person.sayName(); // Jim
+```
+
+4. You can also _explicitly bind_ a function to a `this` value you provide. There are three ways to do that: `call`, `apply`, and `bind`.
+
+```
+function sayNames(names) {
+  for (let name of names) {
+    if (this.hi) {
+      console.log(`Hi ${name}`);
+    } else {
+      console.log(`Bye ${name}`);
+    }
+  }
+}
+
+let whatToSay = { hi: true  };
+let names = ['Jim', 'Sharon', 'Emily'];
+
+sayNames.call(whatToSay, ...names); // Hi Jim Hi Sharon Hi Emily
+sayNames.apply(whatToSay, names); // Hi Jim Hi Sharon Hi Emily
+
+let sayHi = sayNames.bind(whatToSay);
+sayHi(...names); // Hi Jim Hi Sharon Hi Emily
+```
+
+See the difference?
+
+1. `call` and `apply` are both ways to call the function _once_ with a given value for its `this` (the first argument). The difference is that `call` uses a list of arguments that map to the functions arguments (each `call` argument at position n, where n > 0, matches the function param at position n - 1), whereas `apply` takes an _array_ as the second argument and then spreads it into the function's arguments for you.
+
+2. `bind` creates a _new function_ with its `this` permanently bound to the function. If you want to call the function with the given `this` more than once, `bind` is the best way to do it.
+
+Okay, but how is this useful in the real world?
+
+Consider the following example:
+
+```js
+let listItemNodes = document.querySelectorAll(`.list > li`);
+
+let listItems = listItemNodes.map(item => item.textContent);
+```
+
+What happens if we run this?
+
+```
+Uncaught TypeError: Object #<NodeList> has no method 'map'
+```
+
+This problem occurs because `querySelectorAll` returns a special type of list called a NodeList that is similar to, but not exactly, an Array. As such, it doesn't have methods inherited from the Array prototype like `reduce`, `forEach`, and `map`.
+
+However, using `call`, we can run these methods on it--even if they aren't NodeList methods--like so:
+
+```js
+let listItemNodes = document.querySelectorAll(`.list > li`);
+
+let listItems = Array.prototype.map.call(
+  listItemNodes,
+  item => item.textContent
+);
+```
+
+Since we are substituting the NodeList for `.map`'s `this`, which would normally point to the array it's being called on (since `Array` is ultimately just an object with an inherited implicitly bound `map` method), we can call Array methods on a structure that isn't an Array.
