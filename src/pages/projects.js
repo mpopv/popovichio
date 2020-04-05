@@ -237,7 +237,7 @@ const IndexPage = () => {
               <a
                 href="https://codepen.io/spark/31"
                 target="_blank"
-                rel="noferrer noopener"
+                rel="noreferrer noopener"
               >
                 included in the Codepen Spark weekly newsletter
               </a>{' '}

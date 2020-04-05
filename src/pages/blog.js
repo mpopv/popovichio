@@ -4,16 +4,7 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 
-const Content = styled.div`
-  width: 100%;
-  max-width: 680px;
-  margin: 0 auto;
-  & img {
-    width: 100%;
-  }
-`;
-
-const PostWrapper = styled.div`
+const PostWrapper = styled.article`
   padding-top: 30px;
   border-top: 2px solid #2b2b2b;
   margin-top: 60px;
@@ -24,7 +15,7 @@ export default ({ data }) => {
     <Layout>
       <Seo title="Blog" />
 
-      <Content>
+      <div className="content">
         <h1>Matt Popovich</h1>
         <p>Blog</p>
         <Link to={'/'}>{`< Back to Home`}</Link>
@@ -32,20 +23,20 @@ export default ({ data }) => {
           {data.allMdx.nodes.map(({ id, excerpt, frontmatter, fields }) => (
             <PostWrapper key={id}>
               <Link to={fields.slug}>
-                <h1>{frontmatter.title}</h1>
+                <h2>{frontmatter.title}</h2>
               </Link>
               <p>{frontmatter.date}</p>
               <p>{excerpt}</p>
             </PostWrapper>
           ))}
         </div>
-      </Content>
+      </div>
     </Layout>
   );
 };
 
 export const query = graphql`
-  query SITE_INDEX_QUERY {
+  query SITE_BLOG_QUERY {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }
