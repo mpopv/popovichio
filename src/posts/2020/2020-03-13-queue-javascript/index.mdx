@@ -105,6 +105,22 @@ function Queue() {
 }
 ```
 
+### Trying it out
+
+Okay! Let's see if our queue works properly.
+
+```js
+let queue = new Queue();
+queue.enqueue('one');
+queue.enqueue('two');
+queue.dequeue(); // one
+queue.enqueue('three');
+queue.dequeue(); // two
+queue.dequeue(); // three
+```
+
+Lookin' good! We can add items and remove them, and even when those operations are intermingled, the items come out in the same order they were added. Time to put it to the test!
+
 <a name="performance"></a>
 
 ## [#](#performance) Head to Head Performance Battle: Queue vs. Array
