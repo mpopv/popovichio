@@ -1,14 +1,15 @@
 ---
 path: '/blog/queue-javascript'
 title: How To Implement a Queue in JavaScript -- and Beat Arrays at Their Own Game
-date: 2020-03-13
-published: false
+date: 2020-04-07
+published: true
 ---
 
 1. [What's a Queue?](#what)
 2. [Why Might We Want to Use a Queue?](#why)
 3. [Implementing a Basic Queue](#how)
 4. [Head to Head Performance Battle: Queue vs. Array](#performance)
+5. [Further Thoughts](#further)
 
 <a name="what"></a>
 
@@ -32,12 +33,12 @@ Inserting an item into a queue is called an **enqueue** operation, and removing 
 
 [As we learned](/2020/2020-03-11-stack-javascript/), a stack doesn't provide much of a performance benefit over a native JavaScript array, because the `Array.prototype.push()` and `Array.prototype.pop()` methods have already been optimized to provide a stack-like [nearly-**O(1)** efficiency](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). This means that no matter how large the array is, push and pop operations should take around the same amount of time.
 
-On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are closer to **O(n)** efficient, meaning the greater the length of the array is, the longer they will take:
+On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are closer to **O(n)** efficient, meaning the greater the tail of the array is, the longer they will take:
 
 <br />
 
 ![Two charts showing push performance barely changing over time and unshift performance increasing exponentially over time](https://i.imgur.com/EK5UNBD.png)
-_The performance of `.push()` doesn't change much as the array grows, but `.unshift()` gets substantially slower. [Source](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift)_
+_The performance of `.push()` doesn't change much as the array grows, but `.unshift()` gets substantially slower. [Chart by le_m on StackOverflow](https://stackoverflow.com/questions/44031591/performance-of-array-push-vs-array-unshift)_
 
 <br />
 
@@ -58,12 +59,14 @@ Let's start by creating a function with a hash table (another term for an object
 ```js
 function Queue() {
   let data = {};
-  let headIndex = 0;
-  let tailIndex = 0;
+  let head = 0;
+  let tail = 0;
 }
 ```
 
 ### Implementing `.enqueue()`
+
+To add an item to the queue, we'll simply add it as a property on the data object at the next tail index, and then increment our tail index integer.
 
 ```js
 function Queue() {
@@ -79,6 +82,8 @@ function Queue() {
 ```
 
 ### Implementing `.dequeue()`
+
+Similarly, to remove an item from the queue, we'll simply retrieve and delete it from the data object at the head index, and then increment our head index integer and return the item.
 
 ```js
 function Queue() {
@@ -100,6 +105,22 @@ function Queue() {
 }
 ```
 
+### Trying it out
+
+Okay! Let's see if our queue works properly.
+
+```js
+let queue = new Queue();
+queue.enqueue('one');
+queue.enqueue('two');
+queue.dequeue(); // one
+queue.enqueue('three');
+queue.dequeue(); // two
+queue.dequeue(); // three
+```
+
+Lookin' good! We can add items and remove them, and even when those operations are intermingled, the items come out in the same order they were added. Time to put it to the test!
+
 <a name="performance"></a>
 
 ## [#](#performance) Head to Head Performance Battle: Queue vs. Array
@@ -108,14 +129,14 @@ This is it. The big show. The match you've been waiting for. The Battle of the L
 
 In one corner: the native JavaScript array. One list to rule them all, a Swiss army knife of methods -- but is it just too big and slow to compete against a lean young upstart?
 
-And in the other corner: the challenger, a basic queue we wrote in only 17 lines of code! Is is it too small to go toe-to-toe with the defending champ? We're about to find out.
+And in the other corner: the challenger, a basic queue we wrote in only 17 lines of code. Is is it too small to go toe-to-toe with the defending champ? We're about to find out.
 
 **The below code block is live-rendering React** (scroll to below the code block to see our test component -- it's the white rectangle stuck to the bottom of the code block).
 
 In the code below, we will:
 
 - Declare our Queue function
-- Set up a `testList` function that will enqueue onto, and then dequeue from, a given list a certain number of times, using `performance.now()`
+- Set up a `testList` function that will enqueue onto, and then dequeue from, a given list a certain number of times, using `performance.now()` to determine how long the operations took
 - Build a small React component that allows us to input the number of times to enqueue/dequeue, allows us to click to start tests using both a native JavaScript array and our `Queue` function, and then displays the time in milliseconds to enqueue/dequeue the given number of items -- along with which list was faster.
 
 ```jsx react-live
@@ -160,22 +181,14 @@ const TestArea = props => {
 
     let nextResultQueue = testList(
       count,
-      () => {
-        queue.enqueue(1);
-      },
-      () => {
-        queue.dequeue();
-      }
+      () => queue.enqueue(1),
+      () => queue.dequeue()
     );
 
     let nextResultArray = testList(
       count,
-      () => {
-        array.unshift(1);
-      },
-      () => {
-        array.pop();
-      }
+      () => array.unshift(1),
+      () => array.pop()
     );
 
     setResultQueue(nextResultQueue);
@@ -184,28 +197,29 @@ const TestArea = props => {
 
   return (
     <div style={{ padding: `0 20px 40px` }}>
-      <h2 style={{ color: 'steelblue' }}>Performance Battle</h2>
+      <h3 style={{ color: 'steelblue' }}>Performance Battle</h3>
 
       <div>
         Number of enqueues / dequeues:
         <input
-          type="text"
+          type="number"
           value={count}
           onChange={e => setCount(e.target.value)}
         />
       </div>
+
       {count > 99999 && (
         <div style={{ color: 'red' }}>
           Warning! This many enqueues / dequeues may slow or crash your browser!
         </div>
       )}
-      <button onClick={runTest}>Run test</button>
 
-      <br />
-      <br />
+      <button style={{ margin: `0 0 20px` }} onClick={runTest}>
+        Run test
+      </button>
 
-      <div>Queue: {resultQueue}</div>
-      <div>Array: {resultArray}</div>
+      <div>Queue: {resultQueue}ms</div>
+      <div>Array: {resultArray}ms</div>
     </div>
   );
 };
@@ -215,21 +229,33 @@ render(<TestArea />);
 
 Try running the test with 5000 enqueues/dequeues, then 20000, and finally 50000, and see what happens.
 
-.
-
-.
-
-.
-
-.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 Did you try it?
 
-.
-
-.
-
-.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 Neat, huh?
 
@@ -238,3 +264,11 @@ Even increasing the number by _orders of maginitude_ barely budges the time it t
 Can you believe it? We beat native JavaScript arrays at their own game.
 
 It's official: Queues are FIFO World Champs.
+
+<a name="further"></a>
+
+## [#](#further) Further Thoughts
+
+1. With this implementation, we're incrementing the head / tail indexes indefinitely. What problems might this eventually cause? How might we deal with them in the most runtime-efficient (smallest Big O) way?
+
+2. How might we add other basic queue methods, like `.length()` or `.peek()` (return the head of the queue without removing it)?
