@@ -181,22 +181,14 @@ const TestArea = props => {
 
     let nextResultQueue = testList(
       count,
-      () => {
-        queue.enqueue(1);
-      },
-      () => {
-        queue.dequeue();
-      }
+      () => queue.enqueue(1),
+      () => queue.dequeue()
     );
 
     let nextResultArray = testList(
       count,
-      () => {
-        array.unshift(1);
-      },
-      () => {
-        array.pop();
-      }
+      () => array.unshift(1),
+      () => array.pop()
     );
 
     setResultQueue(nextResultQueue);
@@ -205,7 +197,7 @@ const TestArea = props => {
 
   return (
     <div style={{ padding: `0 20px 40px` }}>
-      <h2 style={{ color: 'steelblue' }}>Performance Battle</h2>
+      <h3 style={{ color: 'steelblue' }}>Performance Battle</h3>
 
       <div>
         Number of enqueues / dequeues:
@@ -215,15 +207,16 @@ const TestArea = props => {
           onChange={e => setCount(e.target.value)}
         />
       </div>
+
       {count > 99999 && (
         <div style={{ color: 'red' }}>
           Warning! This many enqueues / dequeues may slow or crash your browser!
         </div>
       )}
-      <button onClick={runTest}>Run test</button>
 
-      <br />
-      <br />
+      <button style={{ margin: `0 0 20px` }} onClick={runTest}>
+        Run test
+      </button>
 
       <div>Queue: {resultQueue}</div>
       <div>Array: {resultArray}</div>
@@ -236,21 +229,33 @@ render(<TestArea />);
 
 Try running the test with 5000 enqueues/dequeues, then 20000, and finally 50000, and see what happens.
 
-.
-
-.
-
-.
-
-.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 Did you try it?
 
-.
-
-.
-
-.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 Neat, huh?
 
