@@ -136,8 +136,8 @@ And in the other corner: the challenger, a basic queue we wrote in only 17 lines
 In the code below, we will:
 
 - Declare our Queue function
-- Set up a `testList` function that will enqueue onto, and then dequeue from, a given list a certain number of times, using `performance.now()` to determine how long the operations took
-- Build a small React component that allows us to input the number of times to enqueue/dequeue, allows us to click to start tests using both a native JavaScript array and our `Queue` function, and then displays the time in milliseconds to enqueue/dequeue the given number of items -- along with which list was faster.
+- Set up a `testList` function that will enqueue onto, and then dequeue from, a given list a certain number of times, using `performance.now()` to determine how long the operations took.
+- Build a small React component that allows us to input the number of times to enqueue/dequeue, allows us to click a button to start tests using both a native JavaScript array and our `Queue`, and then displays the time in milliseconds to enqueue/dequeue the given number of items.
 
 ```jsx react-live
 function Queue() {
