@@ -33,7 +33,7 @@ Inserting an item into a queue is called an **enqueue** operation, and removing 
 
 [As we learned](/2020/2020-03-11-stack-javascript/), a stack doesn't provide much of a performance benefit over a native JavaScript array, because the `Array.prototype.push()` and `Array.prototype.pop()` methods have already been optimized to provide a stack-like [nearly-**O(1)** efficiency](https://stackoverflow.com/questions/697918/what-does-o1-access-time-mean). This means that no matter how large the array is, push and pop operations should take around the same amount of time.
 
-On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are closer to **O(n)** efficient, meaning the greater the tail of the array is, the longer they will take:
+On the other hand, `Array.prototype.shift()` and `Array.prototype.unshift()` are closer to **O(n)** efficient, meaning the greater the length of the array, the longer they will take:
 
 <br />
 
