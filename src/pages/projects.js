@@ -127,25 +127,25 @@ const IndexPage = () => {
         <Seo title="Projects" />
 
         <Content>
-          <h1>Matt Popovich</h1>
-          <p>Projects</p>
-          <Link to={'/'}>{`< Back to Home`}</Link>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <h1 className="shadow">Matt Popovich</h1>
+          <p className="shadow">Projects</p>
+          <div className="shadow-link-within">
+            <Link to={'/'}>{`< Back to Home`}</Link>
+          </div>
+          <div className="project-page-header-area">
+            <div className="project-page-header-area__inner">
+              <h2 className="project-page-header__glow" aria-hidden="true">
+                Projects
+              </h2>
+              <h2 className="project-page-header__outline" aria-hidden="true">
+                Projects
+              </h2>
+              <h2 className="project-page-header">Projects</h2>
+              <h2 className="project-page-header__shine" aria-hidden="true">
+                Projects
+              </h2>
+            </div>
+          </div>
         </Content>
 
         <div className="project-area">
