@@ -10,6 +10,7 @@ import Seo from '../components/Seo';
 import './projects.css';
 
 const Content = styled.div`
+  z-index: 2;
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
@@ -118,6 +119,10 @@ const IndexPage = () => {
 
   return (
     <div className="project-page">
+      <div id="shadow"></div>
+      <div id="the-grid"></div>
+      <div id="glow"></div>
+
       <Layout>
         <Seo title="Projects" />
 
@@ -125,6 +130,22 @@ const IndexPage = () => {
           <h1>Matt Popovich</h1>
           <p>Projects</p>
           <Link to={'/'}>{`< Back to Home`}</Link>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </Content>
 
         <div className="project-area">
