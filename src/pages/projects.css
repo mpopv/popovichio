@@ -378,7 +378,6 @@
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: blur(0.5px);
 }
 
 .project-page-header__glow {
@@ -394,7 +393,6 @@
   color: #efefef;
   text-shadow: 3px 3px 0 #efefef, -3px 3px 0 #efefef, 3px -3px 0 #efefef,
     -3px -3px 0 #efefef;
-  filter: blur(0.5px);
 }
 
 .project-page-header__shine {
