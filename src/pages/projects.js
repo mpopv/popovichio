@@ -119,6 +119,7 @@ const IndexPage = () => {
 
   return (
     <div className="project-page">
+      <div id="scanlines"></div>
       <div id="shadow"></div>
       <div id="the-grid"></div>
       <div id="glow"></div>

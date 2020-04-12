@@ -27,24 +27,6 @@
   font-family: 'Acre';
   font-weight: 400;
   background-color: #002634;
-  background: radial-gradient(
-    ellipse at center,
-    hotpink 0,
-    #e10a6e 70%,
-    #000 90%
-  );
-  background-size: 100vw 7px;
-  background-repeat: repeat;
-  animation: infinite tv-lines 0.75s linear;
-}
-
-@keyframes tv-lines {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 -7px;
-  }
 }
 
 .project-page li,
@@ -83,10 +65,10 @@
 
 .project-page a,
 .project-page a:visited {
-  color: #cbb0f5;
+  color: #e5d8fb;
 }
 .project-page a:hover {
-  color: #8b55ea;
+  color: #cbb0f5;
 }
 
 .project-page .content {
@@ -241,6 +223,31 @@
 .project-page .button:hover {
   color: #005375;
   background-color: #f9f1d8;
+}
+
+#scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    hotpink 0,
+    #e10a6e 70%,
+    #000 90%
+  );
+  background-size: 100vw 7px;
+  background-repeat: repeat;
+  animation: infinite scanline-scroll 0.75s linear;
+}
+@keyframes scanline-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -7px;
+  }
 }
 
 #shadow {
