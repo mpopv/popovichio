@@ -8,6 +8,7 @@ const Project = ({ data, bgImage = '', children }) => (
         <Img fluid={data[bgImage].childImageSharp.fluid} />
       </div>
     )}
+    <div className="project__shroud"></div>
     <div className="project__content">{children}</div>
   </div>
 );
