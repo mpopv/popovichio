@@ -49,6 +49,11 @@ const IndexPage = () => {
             <p>Profiles</p>
             <ul>
               <li>
+                <ExtLink href="https://www.goodreads.com/user/show/67558133-matt-popovich">
+                  <Emoji alt="A pile of books">📚</Emoji> my goodreads profile
+                </ExtLink>
+              </li>
+              <li>
                 <ExtLink href="twitter.com/mpopv">
                   <Emoji alt="A bird">🐦</Emoji> @mpopv on twitter
                 </ExtLink>
