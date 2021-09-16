@@ -110,20 +110,20 @@
   display: grid;
   grid-gap: 40px;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(12, 375px);
+  grid-template-rows: repeat(20, 375px);
 }
 @media (min-width: 1100px) {
   .project-page .project-area {
     width: 1000px;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 375px);
+    grid-template-rows: repeat(20, 375px);
   }
 }
 @media (min-width: 1650px) {
   .project-page .project-area {
     width: 1500px;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 375px);
+    grid-template-rows: repeat(20, 375px);
   }
 }
 
@@ -165,8 +165,9 @@
   z-index: 2;
   background: linear-gradient(
     10deg,
-    #31418c,
-    #31418c 30%,
+    #071349,
+    #101d57,
+    #31418c 50%,
     transparent 70%,
     transparent
   );
@@ -210,7 +211,7 @@
 }
 .project-page .project__content h1 {
   font-size: 50px;
-  max-width: 70%;
+  max-width: 90%;
   color: #fff7e0;
   margin: 0;
   font-family: 'Marvin Visions';
@@ -221,6 +222,9 @@
   background: linear-gradient(to bottom, #c1c9bc 0%, #fff7e0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.project-page .prohect:hover .project__content h1 {
+  filter: brightness(1.5);
 }
 .project-page .project__content > p,
 .project-page .project__content > p > a {
