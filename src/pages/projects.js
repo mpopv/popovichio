@@ -30,6 +30,13 @@ const Button = ({ url, primary = false, children }) => (
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
+      ravetab: file(relativePath: { eq: "ravetab.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 600) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
       makeemoji: file(relativePath: { eq: "makeemoji.png" }) {
         childImageSharp {
           fluid(maxWidth: 600) {
@@ -151,7 +158,7 @@ const IndexPage = () => {
 
         <div className="project-area">
           <Project data={data} bgImage="makeemoji">
-            <h1>MakeEmoji</h1>
+            <h1>MakeEmoji.com</h1>
             <p>
               A React/Typescript app that lets you create your own animated
               custom emojis for Slack and Discord, all on the frontend.
@@ -165,17 +172,29 @@ const IndexPage = () => {
           </Project>
 
           <Project data={data} bgImage="griid">
-            <h1>Griid</h1>
+            <h1>Griid.co</h1>
             <p>
               A React app that lets you browse image-heavy subreddits as a grid
-              of images, with Snowpack to bundle ES Modules on the frontend and
-              a lambda function on Netlify to fetch reddit posts.
+              of images with a lambda function to fetch reddit posts.
             </p>
             <div>
               <Button url="https://griid.co/" primary={true}>
                 Website
               </Button>
               <Button url="https://github.com/mpopv/griid.co">Code</Button>
+            </div>
+          </Project>
+
+          <Project data={data} bgImage="ravetab">
+            <h1>RaveTab.com</h1>
+            <p>
+              A website that lets you see a visualizer for audio sourced from a different browser tab, using the Screen Capture API and Web Audio API.
+            </p>
+            <div>
+              <Button url="https://ravetab.com/" primary={true}>
+                Website
+              </Button>
+              <Button url="https://github.com/mpopv/ravetab">Code</Button>
             </div>
           </Project>
 
