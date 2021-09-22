@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
-import { Link } from 'gatsby';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import styled from 'styled-components';
