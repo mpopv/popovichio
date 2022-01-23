@@ -292,7 +292,7 @@ const IndexPage = () => {
             </div>
           </Project>
 
-          <Project data={data} bgImage="marcomag">
+          {/* <Project data={data} bgImage="marcomag">
             <h1>Make Your Own Marco Mag</h1>
             <p>
               An image generator to customize Marco Rubio's 2016 TIME magazine
@@ -304,7 +304,7 @@ const IndexPage = () => {
               </Button>
               <Button url="https://codepen.io/mpopv/pen/aNbqrq">Code</Button>
             </div>
-          </Project>
+          </Project> */}
 
           <Project data={data} bgImage="trumptwitter">
             <h1>Trump Twitter Cover Generator</h1>
