@@ -95,16 +95,6 @@ const IndexPage = () => {
                   <Emoji alt="A dress shirt">👔</Emoji> mattpopovich on linkedin
                 </ExtLink>
               </li>
-              <li>
-                <ExtLink href="medium.com/@mattpopovich">
-                  <Emoji alt="A pencil">✏️</Emoji> @mattpopovich on medium
-                </ExtLink>
-              </li>
-              <li>
-                <ExtLink href="dev.to/mattpopovich">
-                  <Emoji alt="A pencil">✏️</Emoji> @mattpopovich on dev.to
-                </ExtLink>
-              </li>
             </ul>
           </div>
         </div>
