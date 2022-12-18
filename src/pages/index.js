@@ -36,9 +36,9 @@ const IndexPage = () => {
       <Content>
         <div className="content">
           <h1>Matt Popovich</h1>
-          <div>
+          {/* <div>
             <Link to={'/blog'}>Blog</Link>
-          </div>
+          </div> */}
           <div>
             <Link to={'/projects'}>Projects</Link>
           </div>
