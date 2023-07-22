@@ -46,11 +46,6 @@ const IndexPage = () => {
             <p>Profiles</p>
             <ul>
               <li>
-                <ExtLink href="mastodon.social/@mattpopovich">
-                  <Emoji alt="A mammoth">🦣</Emoji> @mattpopovich@mastodon.social on mastodon
-                </ExtLink>
-              </li>
-              <li>
                 <ExtLink href="twitter.com/mpopv">
                   <Emoji alt="A bird">🐦</Emoji> @mpopv on twitter
                 </ExtLink>
