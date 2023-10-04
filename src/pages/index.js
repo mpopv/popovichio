@@ -36,9 +36,6 @@ const IndexPage = () => {
       <Content>
         <div className="content">
           <h1>Matt Popovich</h1>
-          <div>
-            <Link to={'/projects'}>Projects</Link>
-          </div>
         </div>
 
         <div className="content">
@@ -59,11 +56,6 @@ const IndexPage = () => {
                 <ExtLink href="codepen.io/mattpopovich">
                   <Emoji alt="A man at a computer">👨🏼‍💻</Emoji> @mattpopovich on
                   codepen
-                </ExtLink>
-              </li>
-              <li>
-                <ExtLink href="instagram.com/mpopv">
-                  <Emoji alt="A camera">📷</Emoji> @mpopv on insta
                 </ExtLink>
               </li>
               <li>
