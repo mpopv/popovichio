@@ -1,57 +1,90 @@
 /* css */
 
+:root {
+    --selection-color: #fed7aa;
+    --selection-background: #fb923c;
+    --primary-color: #64748b;
+    --secondary-color: #f8fafc;
+    --accent-color: #e2e8f0;
+    --highlight-color: #ffffff;
+    --link-color: #1a0dab;
+    --visited-link-color: #551a8b;
+    --border-color: #e5e7eb;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-link-color: #0ea5e9;
+    --main-border-color: #e2e8f0;
+    --h1-color: #64748b;
+    --h2-color: #64748b;
+    --a-color: #0284c7;
+    --c-color: #e2e8f0;
+    --li-before-color: #e2e8f0;
+}
+
 @font-face {
     font-family: 'Inter';
     src: url('/Inter-VariableFont_slnt,wght.ttf') format('ttf');
 }
 
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/PlusJakartaSans-VariableFont_wght.ttf') format('ttf');
+}
+
+
 * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 ::-moz-selection { 
-    color: #fed7aa;  
-    background: #fb923c; 
+    color: var(--selection-color);  
+    background: var(--selection-background); 
 } 
 ::selection { 
-    color: #fed7aa;  
-    background: #fb923c; 
-} 
+    color: var(--selection-color);  
+    background: var(--selection-background); 
+}
 
 body {
-    padding: 1rem 2rem;
-    background-color: #fafaf9;
-    color: #292524;
-    background-image: 
-        linear-gradient(to right, #f5f5f4 1px, transparent 1px), 
-        linear-gradient(to bottom, #f5f5f4 1px, transparent 1px);
-    background-size: 5rem 5rem;
-    background-position: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 @media (min-width: 768px) {
     body {
-        margin: 3rem;
-    }
-}
-@media (min-width: 1199px) {
-    body {
-        margin: 6rem;
+        padding: 5rem;
+        background-image: 
+            linear-gradient(to right, var(--main-border-color) 1px, transparent 1px), 
+            linear-gradient(to bottom, var(--main-border-color) 1px, transparent 1px);
+        background-size: 5rem 5rem;
+        background-position: center;
     }
 }
 
+
 main {
     margin: 0 auto;
-    max-width: 32rem;
+    max-width: 35rem;
+    background-color: var(--secondary-color);
+}
+
+@media (min-width: 768px) {
+    main {
+        height: 75rem;
+        min-height: 75rem;
+        outline: 0,  0.25px solid var(--main-border-color), 0.25px solid var(--main-border-color), 0.25px solid var(--main-border-color);
+        border-top: 0.25px solid var(--main-border-color);
+        padding: 2.5rem;
+    }
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: 300;
-    color: #78716c;
+    color: var(--h1-color);
     margin-bottom: 1.15rem;
 }
 
@@ -59,22 +92,29 @@ h2 {
     margin-top: 2rem;
     font-size: 1rem;
     font-weight: 400;
-    color: #78716c;
+    color: var(--h2-color);
 }
 
 p, li {
     font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.p {
+    font-family: 'Plus Jakarta Sans';
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 a {
-    color: #0284c7;
+    color: var(--a-color);
     transition: all .15s ease-out;
     font-weight: 700;
     text-decoration: none;
 }
 
 a:hover {
-    color: #0ea5e9;
+    color: var(--hover-link-color);
     text-decoration: underline;
 }
 
@@ -92,15 +132,34 @@ li {
 
 li::before {
     content: '■'; /* Unicode for a square */
-    color: #d6d3d1; /* Lighter color for the square */
+    color: var(--li-before-color); /* Lighter color for the square */
     position: absolute;
     left: -1.5rem; /* Adjust based on your margin */
     transform: scale(0.75);
 }
 
 .c {
+    font-weight: 400;
     margin-top: 8rem;
-    color: #d6d3d1;
+    color: var(--c-color);
     font-size: 0.8rem;
 }
 
+.top {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .top {
+        flex-direction: row-reverse;
+    }
+}
+
+.pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
