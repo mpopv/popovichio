@@ -106,7 +106,7 @@ p, li {
 }
 
 a {
-    color: var(--a-color);
+    color: var(--selection-background);
     transition: all .15s ease-out;
     font-weight: 700;
     text-decoration: none;
@@ -114,7 +114,7 @@ a {
 
 a:hover {
     color: var(--hover-link-color);
-    text-decoration: underline;
+    text-decoration: wavy;
 }
 
 .italic {
