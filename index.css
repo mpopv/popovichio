@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/Inter-VariableFont_slnt,wght.ttf') format('ttf');
+}
+
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 1rem 2rem;
+    background-color: #fafaf9;
+    color: #292524;
+    background-image: 
+        linear-gradient(to right, #e7e5e4 1px, transparent 1px), 
+        linear-gradient(to bottom, #e7e5e4 1px, transparent 1px);
+    background-size: 5rem 5rem; /* Adjust the size of the grid as needed */
+}
+
+@media (min-width: 768px) {
+    body {
+        margin: 3rem;
+    }
+}
+@media (min-width: 1199px) {
+    body {
+        margin: 6rem;
+    }
+}
+
+main {
+    margin: 0 auto;
+    max-width: 35rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+h2 {
+    margin-top: 3rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+a {
+    font-weight: 500;
+    color: #0284c7;
+    transition: all .15s ease-out;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0ea5e9;
+    text-decoration: underline;
+}
+
+.italic {
+    font-style: italic;
+    font-weight: 300;
+}
+
+li {
+    margin-top: 1rem;
+}
+
