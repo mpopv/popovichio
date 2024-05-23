@@ -8,15 +8,26 @@
 * {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
+::-moz-selection { 
+    color: #fed7aa;  
+    background: #fb923c; 
+} 
+::selection { 
+    color: #fed7aa;  
+    background: #fb923c; 
+} 
 
 body {
     padding: 1rem 2rem;
     background-color: #fafaf9;
     color: #292524;
     background-image: 
-        linear-gradient(to right, #e7e5e4 1px, transparent 1px), 
-        linear-gradient(to bottom, #e7e5e4 1px, transparent 1px);
+        linear-gradient(to right, #f5f5f4 1px, transparent 1px), 
+        linear-gradient(to bottom, #f5f5f4 1px, transparent 1px);
     background-size: 5rem 5rem;
     background-position: center;
 }
@@ -34,22 +45,28 @@ body {
 
 main {
     margin: 0 auto;
-    max-width: 35rem;
+    max-width: 32rem;
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: 300;
+    color: #78716c;
+    margin-bottom: 1.15rem;
 }
 
 h2 {
-    margin-top: 3rem;
-    font-size: 1.25rem;
+    margin-top: 2rem;
+    font-size: 1rem;
     font-weight: 400;
+    color: #78716c;
+}
+
+p, li {
+    font-size: 0.85rem;
 }
 
 a {
-    font-weight: 500;
     color: #0284c7;
     transition: all .15s ease-out;
     font-weight: 700;
@@ -68,5 +85,22 @@ a:hover {
 
 li {
     margin-top: 1rem;
+    list-style: none;
+    margin-left: 1.5rem;
+    position: relative;
+}
+
+li::before {
+    content: '■'; /* Unicode for a square */
+    color: #d6d3d1; /* Lighter color for the square */
+    position: absolute;
+    left: -1.5rem; /* Adjust based on your margin */
+    transform: scale(0.75);
+}
+
+.c {
+    margin-top: 5rem;
+    color: #d6d3d1;
+    font-size: 0.8rem;
 }
 
