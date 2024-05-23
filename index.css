@@ -114,7 +114,7 @@ a {
 
 a:hover {
     color: var(--hover-link-color);
-    text-decoration: wavy;
+    text-decoration: underline wavy;
 }
 
 .italic {
