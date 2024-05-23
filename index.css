@@ -140,7 +140,7 @@ li::before {
 .c {
     font-weight: 400;
     margin-top: 8rem;
-    color: var(--c-color);
+    color: var(--h2-color);
     font-size: 0.8rem;
 }
 
