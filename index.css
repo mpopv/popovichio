@@ -75,7 +75,6 @@ main {
     main {
         height: calc(75rem - 1.5px);
         min-height: calc(75rem - 1.5px);
-        border: 0.25px solid var(--main-border-color);
         padding: 2.5rem;
     }
 }
