@@ -80,10 +80,11 @@ main {
 
 h1 {
     font-size: 2.5rem;
-    letter-spacing: -0.075rem;
-    font-weight: 300;
+    letter-spacing: -0.125rem;
+    font-weight: 100;
     color: var(--h1-color);
     margin-bottom: 1.15rem;
+    font-family: 'Plus Jakarta Sans';
 }
 
 h2 {
