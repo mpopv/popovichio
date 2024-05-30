@@ -66,14 +66,15 @@ body {
 
 main {
     margin: 0 auto;
-    max-width: 35rem;
+    width: calc(35rem - 1.5px);
+    max-width: calc(35rem - 1.5px);
     background-color: var(--secondary-color);
 }
 
 @media (min-width: 768px) {
     main {
-        height: 75rem;
-        min-height: 75rem;
+        height: calc(75rem - 1.5px);
+        min-height: calc(75rem - 1.5px);
         border: 0.25px solid var(--main-border-color);
         padding: 2.5rem;
     }
