@@ -1,163 +1,170 @@
 /* css */
 
 :root {
-    --selection-color: #fed7aa;
-    --selection-background: #c2410c;
-    --primary-color: #64748b;
-    --secondary-color: #f8fafc;
-    --accent-color: #e2e8f0;
-    --highlight-color: #ffffff;
-    --link-color: #1a0dab;
-    --visited-link-color: #551a8b;
-    --border-color: #e5e7eb;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --hover-link-color: #ea580c;
-    --main-border-color: #e2e8f0;
-    --h1-color: #64748b;
-    --h2-color: #64748b;
-    --a-color: #02689a;
-    --c-color: #e2e8f0;
-    --li-before-color: #e2e8f0;
+  --selection-color: #fed7aa;
+  --selection-background: #c2410c;
+  --primary-color: #64748b;
+  --secondary-color: #f8fafc;
+  --accent-color: #e2e8f0;
+  --highlight-color: #ffffff;
+  --link-color: #1a0dab;
+  --visited-link-color: #551a8b;
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-link-color: #ea580c;
+  --main-border-color: #e2e8f0;
+  --h1-color: #64748b;
+  --h2-color: #64748b;
+  --a-color: #02689a;
+  --c-color: #e2e8f0;
+  --li-before-color: #e2e8f0;
 }
 
 @font-face {
-    font-family: 'Inter';
-    src: url('/Inter-VariableFont_slnt,wght.ttf') format('ttf');
+  font-family: "Inter";
+  src: url("/Inter-VariableFont_slnt,wght.ttf") format("ttf");
 }
 
 @font-face {
-    font-family: 'Plus Jakarta Sans';
-    src: url('/PlusJakartaSans-VariableFont_wght.ttf') format('ttf');
+  font-family: "Plus Jakarta Sans";
+  src: url("/PlusJakartaSans-VariableFont_wght.ttf") format("ttf");
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-::-moz-selection { 
-    color: var(--selection-color);  
-    background: var(--selection-background); 
-} 
-::selection { 
-    color: var(--selection-color);  
-    background: var(--selection-background); 
+::-moz-selection {
+  color: var(--selection-color);
+  background: var(--selection-background);
+}
+::selection {
+  color: var(--selection-color);
+  background: var(--selection-background);
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    padding: 1rem;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 @media (min-width: 768px) {
-    body {
-        padding: 5rem;
-        background-image: 
-            linear-gradient(to right, var(--main-border-color) 1px, transparent 1px), 
-            linear-gradient(to bottom, var(--main-border-color) 1px, transparent 1px);
-        background-size: 5rem 5rem;
-        background-position: center;
-    }
+  body {
+    padding: 5rem;
+    background-image: linear-gradient(
+        to right,
+        var(--main-border-color) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, var(--main-border-color) 1px, transparent 1px);
+    background-size: 5rem 5rem;
+    background-position: center;
+  }
 }
-
 
 main {
-    margin: 0 auto;
-    max-width: calc(35rem - 1.5px);
-    background-color: var(--secondary-color);
+  margin: 0 auto;
+  max-width: calc(35rem - 1.5px);
+  background-color: var(--secondary-color);
 }
 
 @media (min-width: 768px) {
-    main {
-        height: calc(75rem - 1.5px);
-        min-height: calc(75rem - 1.5px);
-        padding: 2.5rem;
-    }
+  main {
+    height: calc(75rem - 1.5px);
+    min-height: calc(75rem - 1.5px);
+    padding: 2.5rem;
+  }
 }
 
 h1 {
-    font-size: 2.5rem;
-    letter-spacing: -0.125rem;
-    font-weight: 100;
-    color: var(--h1-color);
-    margin-bottom: 1.15rem;
-    font-family: 'Plus Jakarta Sans';
+  font-size: 2.5rem;
+  letter-spacing: -0.125rem;
+  font-weight: 100;
+  color: var(--h1-color);
+  margin-bottom: 1.15rem;
+  font-family: "Plus Jakarta Sans";
 }
 
 h2 {
-    margin-top: 2rem;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--h2-color);
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--h2-color);
 }
 
-p, li, h3, h4, h5, h6 {
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
+p,
+li,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
 }
 
 .p {
-    font-family: 'Plus Jakarta Sans';
-    font-size: 0.85rem;
-    font-weight: 700;
+  font-family: "Plus Jakarta Sans";
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 a {
-    color: var(--selection-background);
-    transition: all .15s ease-out;
-    font-weight: 700;
-    text-decoration: none;
+  color: var(--selection-background);
+  transition: all 0.15s ease-out;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 a:hover {
-    color: var(--hover-link-color);
+  color: var(--hover-link-color);
 }
 
 .italic {
-    font-style: italic;
-    font-weight: 300;
+  font-style: italic;
+  font-weight: 300;
 }
 
 li {
-    margin-top: 1rem;
-    list-style: none;
-    margin-left: 1.5rem;
-    position: relative;
+  margin-top: 1rem;
+  list-style: none;
+  margin-left: 1.5rem;
+  position: relative;
 }
 
 li::before {
-    content: '■'; /* Unicode for a square */
-    color: var(--li-before-color); /* Lighter color for the square */
-    position: absolute;
-    left: -1.5rem; /* Adjust based on your margin */
-    transform: scale(0.75);
+  content: "■"; /* Unicode for a square */
+  color: var(--li-before-color); /* Lighter color for the square */
+  position: absolute;
+  left: -1.5rem; /* Adjust based on your margin */
+  transform: scale(0.75);
 }
 
 .c {
-    font-weight: 400;
-    margin-top: 8rem;
-    color: var(--h2-color);
-    font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: 6rem;
+  color: var(--h2-color);
+  font-size: 0.8rem;
 }
 
 .top {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
-    .top {
-        flex-direction: row-reverse;
-    }
+  .top {
+    flex-direction: row-reverse;
+  }
 }
 
 .pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
