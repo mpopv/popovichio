@@ -22,12 +22,14 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("/Inter-VariableFont_slnt,wght.ttf") format("ttf");
+  src: url("/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Plus Jakarta Sans";
-  src: url("/PlusJakartaSans-VariableFont_wght.ttf") format("ttf");
+  src: url("/PlusJakartaSans-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
 }
 
 * {
@@ -86,7 +88,8 @@ h1 {
   font-weight: 100;
   color: var(--h1-color);
   margin-bottom: 1.15rem;
-  font-family: "Plus Jakarta Sans";
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont,
+    sans-serif;
 }
 
 h2 {
@@ -107,7 +110,8 @@ h6 {
 }
 
 .p {
-  font-family: "Plus Jakarta Sans";
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont,
+    sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
 }
