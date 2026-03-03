@@ -125,12 +125,14 @@
 
     main {
       margin: 0 auto;
-      max-width: 35rem;
+      max-width: calc(35rem - 1.5px);
       background-color: var(--surface-color);
     }
 
     @media (min-width: 768px) {
       main {
+        height: calc(75rem - 1.5px);
+        min-height: calc(75rem - 1.5px);
         padding: 2.5rem;
       }
     }
