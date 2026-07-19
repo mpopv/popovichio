@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matt Popovich | Software Engineer</title>
-  <meta name="description" content="Personal site of Matt Popovich, staff software engineer and builder working across startups, AI, policy, and design.">
+  <title>Matt Popovich | Staff Applied AI Engineer</title>
+  <meta name="description" content="Personal site of Matt Popovich, staff applied AI engineer and builder working across enterprise AI, startups, policy, and design.">
   <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#f8fafc">
+  <meta name="theme-color" content="#fcfbf8">
   <link rel="canonical" href="https://popovich.io/">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
@@ -14,18 +14,17 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="preload" as="image" href="/me.webp" type="image/webp" fetchpriority="high">
-  <meta property="og:title" content="Matt Popovich | Software Engineer">
+  <meta property="og:title" content="Matt Popovich | Staff Applied AI Engineer">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://popovich.io/">
   <meta property="og:image" content="https://popovich.io/card.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="501">
   <meta property="og:image:alt" content="Portrait of Matt Popovich">
-  <meta property="og:description" content="Personal site of Matt Popovich, staff software engineer and builder working across startups, AI, policy, and design.">
+  <meta property="og:description" content="Personal site of Matt Popovich, staff applied AI engineer and builder working across enterprise AI, startups, policy, and design.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Matt Popovich | Software Engineer">
-  <meta name="twitter:description" content="Personal site of Matt Popovich, staff software engineer and builder working across startups, AI, policy, and design.">
+  <meta name="twitter:title" content="Matt Popovich | Staff Applied AI Engineer">
+  <meta name="twitter:description" content="Personal site of Matt Popovich, staff applied AI engineer and builder working across enterprise AI, startups, policy, and design.">
   <meta name="twitter:image" content="https://popovich.io/card.png">
   <meta name="twitter:site" content="@mpopv">
   <meta name="twitter:creator" content="@mpopv">
@@ -37,8 +36,8 @@
       "name": "Matt Popovich",
       "url": "https://popovich.io/",
       "image": "https://popovich.io/me.jpg",
-      "description": "Staff software engineer at Forge Global and webmaster at MakeEmoji.",
-      "jobTitle": "Staff Software Engineer",
+      "description": "Staff Applied AI Engineer at Forge Global and webmaster at MakeEmoji.",
+      "jobTitle": "Staff Applied AI Engineer",
       "worksFor": {
         "@type": "Organization",
         "name": "Forge Global",
@@ -52,7 +51,7 @@
       "hasOccupation": [
         {
           "@type": "Occupation",
-          "name": "Staff Software Engineer"
+          "name": "Staff Applied AI Engineer"
         },
         {
           "@type": "Occupation",
@@ -81,13 +80,14 @@
   </script>
   <style>
     :root {
-      --selection-color: #fed7aa;
-      --selection-background: #c2410c;
-      --text-color: #64748b;
-      --surface-color: #f8fafc;
-      --line-color: #e2e8f0;
-      --link-color: #c2410c;
-      --link-hover-color: #ea580c;
+      --ink: #181817;
+      --muted: #5f5d59;
+      --surface: #fcfbf8;
+      --line: #dedbd5;
+      --accent: #c5481c;
+      --accent-hover: #8f3213;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
     * {
@@ -95,219 +95,335 @@
     }
 
     ::-moz-selection {
-      color: var(--selection-color);
-      background: var(--selection-background);
+      color: var(--surface);
+      background: var(--accent);
     }
 
     ::selection {
-      color: var(--selection-color);
-      background: var(--selection-background);
+      color: var(--surface);
+      background: var(--accent);
     }
 
     body {
       margin: 0;
-      padding: 1rem;
-      background-color: var(--surface-color);
-      color: var(--text-color);
-      font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 2.75rem 1.5rem 2rem;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: var(--sans);
       text-rendering: optimizeLegibility;
-    }
-
-    @media (min-width: 768px) {
-      body {
-        padding: 5rem;
-        background-image: linear-gradient(to right, var(--line-color) 1px, transparent 1px), linear-gradient(to bottom, var(--line-color) 1px, transparent 1px);
-        background-size: 5rem 5rem;
-        background-position: center;
-      }
+      -webkit-font-smoothing: antialiased;
     }
 
     main {
       margin: 0 auto;
-      max-width: calc(35rem - 1.5px);
-      background-color: var(--surface-color);
+      width: min(100%, 53.75rem);
     }
 
-    @media (min-width: 768px) {
-      main {
-        height: calc(85rem - 1.5px);
-        min-height: calc(85rem - 1.5px);
-        padding: 2.5rem;
-      }
-    }
-
-    .top {
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .top {
-        flex-direction: row-reverse;
-        align-items: center;
-      }
-    }
-
-    .pic {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      display: block;
+    header {
+      margin-bottom: 2.75rem;
     }
 
     h1 {
-      margin: 0 0 1.15rem;
-      font-size: 2.5rem;
-      letter-spacing: -0.125rem;
-      font-weight: 100;
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.75rem, 3vw, 2rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 750;
     }
 
-    h2 {
-      margin: 2rem 0 0;
-      font-size: 1rem;
+    .intro {
+      max-width: 46rem;
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 0.85rem;
+      margin: 1.15rem 0 0;
+      font-size: 0.9rem;
+    }
+
+    .email {
+      color: var(--ink);
       font-weight: 400;
     }
 
-    h3 {
+    .separator {
+      color: #918e88;
+      font-family: var(--mono);
+    }
+
+    .indexed-section {
+      display: grid;
+      grid-template-columns: 9.75rem minmax(0, 1fr);
+      gap: 0 2.9rem;
+      padding: 1.7rem 0 1.9rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .indexed-section:first-of-type {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .section-heading {
       margin: 0;
-      font-size: 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .section-number,
+    .section-slash {
+      color: var(--muted);
+    }
+
+    .section-slash {
+      margin: 0 0.45rem;
+    }
+
+    .section-name {
+      color: var(--accent);
       font-weight: 700;
-      margin-bottom: 0.25rem;
     }
 
-    p,
-    li {
-      font-size: 0.85rem;
-      margin-bottom: 0.25rem;
+    .section-content > :first-child {
+      margin-top: 0;
     }
 
-    ul {
+    .role {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;
+      gap: 0.3rem 1.75rem;
+    }
+
+    .role + .role {
+      margin-top: 1.1rem;
+    }
+
+    .role h3,
+    .history-entry h3 {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .role time,
+    .history-entry time {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      line-height: 1.55;
+      white-space: nowrap;
+    }
+
+    .role p,
+    .history-entry p,
+    .section-kicker {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .role p {
+      grid-column: 1 / 2;
+      max-width: 38rem;
+    }
+
+    .section-kicker {
+      margin-bottom: 1rem;
+    }
+
+    .history {
+      display: grid;
+      gap: 0.7rem;
       margin: 0;
       padding: 0;
-    }
-
-    li {
-      margin-top: 1rem;
-      margin-left: 1.5rem;
       list-style: none;
-      position: relative;
     }
 
-    li::before {
-      content: "■";
-      color: var(--line-color);
-      position: absolute;
-      left: -1.5rem;
-      transform: scale(0.75);
+    .history-entry {
+      display: grid;
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 0 1rem;
+    }
+
+    .history-entry time {
+      grid-row: 1 / span 2;
     }
 
     a {
-      color: var(--link-color);
-      font-weight: 700;
-      text-decoration: underline;
-      text-underline-offset: 0.14em;
-      text-decoration-thickness: 0.08em;
-      transition: color 0.15s ease-out;
+      color: var(--accent);
+      font-weight: 650;
+      text-decoration: none;
+      transition: color 0.15s ease-out, text-decoration-color 0.15s ease-out;
     }
 
     a:hover,
     a:focus-visible {
-      color: var(--link-hover-color);
-      outline: none;
+      color: var(--accent-hover);
+      text-decoration: underline;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.15em;
     }
 
-    .range {
-      font-style: italic;
-      font-weight: 300;
-      margin-right: 0.25rem;
-    }
-
-    .subtitle {
-      margin: 0;
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 0.2rem;
     }
 
     footer {
-      margin-top: 6rem;
-      font-size: 0.8rem;
+      padding-top: 1.15rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 1.75rem 1.1rem 1.5rem;
+      }
+
+      header {
+        margin-bottom: 2rem;
+      }
+
+      .contact {
+        gap: 0.5rem 0.7rem;
+      }
+
+      .indexed-section {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+        padding: 1.5rem 0;
+      }
+
+      .indexed-section:first-of-type {
+        padding-top: 0;
+      }
+
+      .role {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+      }
+
+      .role time {
+        grid-row: 2;
+      }
+
+      .role p {
+        grid-column: 1;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .history-entry {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+      }
+
+      .history-entry time {
+        grid-row: auto;
+      }
     }
   </style>
 </head>
 <body>
   <main>
-    <header class="top">
-      <picture>
-        <source srcset="/me.webp" type="image/webp">
-        <img class="pic" src="/me.jpg" alt="Matt Popovich" width="150" height="150" fetchpriority="high" decoding="async">
-      </picture>
-      <div>
-        <h1>Matt Popovich</h1>
-      </div>
+    <header>
+      <h1>Matt Popovich</h1>
+      <p class="intro">staff applied AI engineer / independent builder</p>
+      <nav class="contact" aria-label="Contact">
+        <span class="email">Email: my name @outlook.com</span>
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="https://github.com/mpopv">GitHub</a>
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="https://linkedin.com/in/mattpopovich">LinkedIn</a>
+        <span class="separator" aria-hidden="true">/</span>
+        <a href="https://x.com/mpopv">X (Twitter)</a>
+      </nav>
     </header>
 
-    <section aria-labelledby="hello-heading">
-      <h2 id="hello-heading">Say hello 👋</h2>
-      <ul>
-        <li>
-          <a href="https://x.com/mpopv">X / Twitter</a>
-        </li>
-        <li>
-          <a href="https://linkedin.com/in/mattpopovich">LinkedIn</a>
-        </li>
-      </ul>
+    <section class="indexed-section" aria-labelledby="now-heading">
+      <h2 class="section-heading" id="now-heading">
+        <span class="section-number">01</span>
+        <span class="section-slash" aria-hidden="true">/</span>
+        <span class="section-name">Now</span>
+      </h2>
+      <div class="section-content">
+        <article class="role">
+          <h3>Staff Applied AI Engineer at Forge Global</h3>
+          <time datetime="2024">2024–Present</time>
+          <p>As a right hand staff engineer under the SVP of Enterprise AI Strategy and Engineering, I stand up key internal AI projects across the company.</p>
+        </article>
+        <article class="role">
+          <h3>Webmaster at <a href="https://makeemoji.com">MakeEmoji</a></h3>
+          <time datetime="2019">2019–Present</time>
+          <p>The world's most popular animated custom emote creator, used by over two million creators and businesses.</p>
+        </article>
+      </div>
     </section>
 
-    <section aria-labelledby="current-heading">
-      <h2 id="current-heading">Current</h2>
-      <ul>
-        <li>
-          <h3><span class="range">(2024-Present)</span>Staff Software Engineer at Forge Global</h3>
-          <p>Building the future of secondary markets for pre-IPO startup equity.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2019-Present)</span>Webmaster at <a href="https://makeemoji.com">MakeEmoji</a></h3>
-          <p>The world's most popular animated custom emote creator, used by tens of thousands of creators and businesses.</p>
-        </li>
-      </ul>
-    </section>
-
-    <section aria-labelledby="past-heading">
-      <h2 id="past-heading">Past</h2>
-      <ul>
-        <li>
-          <h3><span class="range">(2023-2024)</span>Cofounder &amp; CEO at LegislatureAI</h3>
-          <p>Startup building the next-generation legislative tracker.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2022-2024)</span>Founder &amp; Chapter Lead at Hawaiʻi YIMBY</h3>
-          <p>Pro-housing advocacy group that fought to upzone the state and won.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2020-2023)</span>Frontend Engineer at Amazon</h3>
-          <p>Built software for industrial facility operators at AWS and features for &gt;150 million users at Goodreads.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2016-2019)</span>Software Engineer at Morning Consult</h3>
-          <p>Second engineering hire and tech lead for a custom in-house CMS that reduced turnaround on client projects by 90%.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2016)</span>Web Developer at Veracity Media</h3>
-          <p>Tech lead for a custom in-house CMS that reduced turnaround on client projects by 80%.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2014-2016)</span>Freelance Political Campaign Consultant</h3>
-          <p>Built WordPress websites for over a dozen local, state, and congressional political campaigns.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2014)</span>Communications Coordinator at Smitty for DC Attorney General</h3>
-          <p>Built WordPress website and designed campaign literature and mail pieces.</p>
-        </li>
-        <li>
-          <h3><span class="range">(2013)</span>B.A. Political Science / International Relations, UC San Diego</h3>
-        </li>
-      </ul>
+    <section class="indexed-section" aria-labelledby="history-heading">
+      <h2 class="section-heading" id="history-heading">
+        <span class="section-number">02</span>
+        <span class="section-slash" aria-hidden="true">/</span>
+        <span class="section-name">History</span>
+      </h2>
+      <div class="section-content">
+        <p class="section-kicker">Selected professional history.</p>
+        <ol class="history">
+          <li class="history-entry">
+            <time datetime="2023">2023–2024</time>
+            <h3>Cofounder &amp; CEO at LegislatureAI</h3>
+            <p>Startup building the next-generation legislative tracker.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2022">2022–2024</time>
+            <h3>Founder &amp; Chapter Lead at Hawaiʻi YIMBY</h3>
+            <p>Pro-housing advocacy group that fought to upzone the state and won.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2020">2020–2023</time>
+            <h3>Frontend Engineer at Amazon</h3>
+            <p>Built software for industrial facility operators at AWS and features for &gt;150 million users at Goodreads.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2016">2016–2019</time>
+            <h3>Software Engineer at Morning Consult</h3>
+            <p>Second engineering hire and tech lead for a custom in-house CMS that reduced turnaround on client projects by 90%.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2016">2016</time>
+            <h3>Web Developer at Veracity Media</h3>
+            <p>Tech lead for a custom in-house CMS that reduced turnaround on client projects by 80%.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2014">2014–2016</time>
+            <h3>Freelance Political Campaign Consultant</h3>
+            <p>Built WordPress websites for over a dozen local, state, and congressional political campaigns.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2014">2014</time>
+            <h3>Communications Coordinator at Smitty for DC Attorney General</h3>
+            <p>Built WordPress website and designed campaign literature and mail pieces.</p>
+          </li>
+          <li class="history-entry">
+            <time datetime="2013">2013</time>
+            <h3>B.A. Political Science / International Relations, UC San Diego</h3>
+          </li>
+        </ol>
+      </div>
     </section>
 
     <footer>© 2016-2026 Matt Popovich</footer>
